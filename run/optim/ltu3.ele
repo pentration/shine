@@ -1,0 +1,106 @@
+&run_setup
+        lattice = lattice.lte,
+        default_order = 2,
+!        use_beamline = DBA31,
+        p_central_mev = 8.0e3,
+&end
+
+
+&run_control
+        n_steps = 1
+&end
+
+&twiss_output
+	matched = 0,
+!	beta_x			= 1.50e+01, 
+!	alpha_x			=-0.00e-16,
+!	beta_y			= 1.50e+01, 
+!	alpha_y			= 0.00e-16,
+	output_at_each_step=1,
+!	filename = %s.twi,
+&end
+
+
+!&alter_elements name=TWISS3,item=VERBOSE,value=1 &end
+
+&optimization_setup
+	mode = "minimize", method = "simplex",
+	target = 1e-6,
+	tolerance = 1e-8, n_passes = 3, n_evaluations = 2500, log_file = /dev/tty, 
+	n_restarts = 10,
+	verbose = 1, output_sparsing_factor = 10
+&end
+
+&optimization_term term = "max.betax 250 .1 segt", weight=1.0 &end        
+&optimization_term term = "max.betay 250 .1 segt", weight=1.0 &end
+
+!! Optimization terms for DBA1 !!
+!&optimization_term term = "MB1#1.etaxp 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB1#1.etax 0.20 .1 segt", weight=1.0 &end
+!&optimization_term term = "MM0#1.etaxp 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB1#1.alphax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB1#1.alphay 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=1.0 &end
+!&optimization_term term = "MB2#1.nuy MB0#1.nuy - abs 0.5 - abs", weight=1.0 &end
+
+!&optimization_term term = "MM1#1.betax 3.415519e+01 - abs", weight=1.0 &end
+!&optimization_term term = "MM1#1.betay 2.427451e+01 - abs", weight=1.0 &end
+!&optimization_term term = "MM1#1.alphax -1.200830e+00 - abs", weight=10 &end
+!&optimization_term term = "MM1#1.alphay  8.576443e-01 - abs", weight=10 &end
+!&optimization_term term = "MM1#1.nux MB2#1.nux - abs 0.25 - abs", weight=1.0 &end
+!&optimization_term term = "MM1#1.nuy MB2#1.nuy - abs 0.25 - abs", weight=1.0 &end
+
+
+!&optimization_term term = "MM1#1.alphax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MM1#1.alphay 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MM1#1.betax MM1#1.betay - abs", weight=1.0 &end
+!&optimization_term term = "MB3#1.nux MB2#1.nux - abs 0.5 - abs", weight=1.0 &end
+!&optimization_term term = "MB3#1.nuy MB2#1.nuy - abs 0.5 - abs", weight=1.0 &end
+
+&optimization_term term = "MU3#1.betax 2.160155e+01 - abs", weight=10 &end
+&optimization_term term = "MU3#1.betay 1.185292e+01 - abs", weight=1.0 &end
+&optimization_term term = "MU3#1.alphax -1.294750e+00 - abs", weight=100 &end
+&optimization_term term = "MU3#1.alphay  7.143567e-01 - abs", weight=50 &end
+
+!&optimization_variable name = QB31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QB32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+
+!&optimization_variable name = QM31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM34, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM35, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+
+&optimization_variable name = QU31, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+&optimization_variable name = QU32, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+&optimization_variable name = QU33, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+&optimization_variable name = QU34, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+!&optimization_variable name = QU35, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+!&optimization_variable name = QU36, item=K1, lower_limit=-2, upper_limit=2, step_size = 0.1 &end
+
+!&optimization_variable name = TWISS3, item=BETAX, lower_limit=0.1, upper_limit=5, step_size = 1 &end
+!&optimization_variable name = TWISS3, item=ALPHAX, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
+!&optimization_variable name = TWISS3, item=BETAY, lower_limit=0.1, upper_limit=40, step_size = 1 &end
+!&optimization_variable name = TWISS3, item=ALPHAY, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
+	
+		
+&bunched_beam
+	n_particles_per_bunch	= 1,
+	emit_nx			= 4.500000e-07,
+	emit_ny			= 4.500000e-07,
+	Po			= 1.556560e+04,
+	sigma_dp		= 1.0e-3,
+	sigma_s			= 2.0e-5,
+	distribution_type[0] 	= 3*"gaussian",
+	distribution_cutoff[0]	= 3*3,
+	symmetrize 		= 1,
+	enforce_rms_values[0]	= 1,1,1,
+	!bunch			= %s.bun
+&end
+ 
+&optimize 
+	!summarize_setup=1 
+&end
+
+&save_lattice filename = %s.lte &end
+

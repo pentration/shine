@@ -1,0 +1,367 @@
+#INCLUDE:	/Users/chensi/Simulations/data/elegant/sinap/shine/2018/0321/run/optim/fel1.lte
+#INCLUDE:	/Users/chensi/Simulations/data/elegant/sinap/shine/2018/0321/run/optim/fel2.lte
+#INCLUDE:	/Users/chensi/Simulations/data/elegant/sinap/shine/2018/0321/run/optim/fel3.lte
+
+q		: charge, total=0.1e-9
+
+BK		: CSRCSBEN,															&
+    	     L = 2.500000e-01,												&
+			 ANGLE =  5.000000e-05,											&
+    	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
+    	     HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+			 TILT = " -90.0 180.0 / -1 acos * ",							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+    	
+B1S		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.50 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+B11		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.50 180.0 / -1 acos * ",                          	&
+    	     E1 = " 1.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1, 									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B12		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.50 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								& 
+			 E2 = "-1.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B13		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.50 180.0 / -1 acos * ",                          	&
+    	     E1 = "-1.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B2S		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.75 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = "-1.50 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+B21		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.75 180.0 / -1 acos * ",                            &
+    	     E1 = "-1.50 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B22		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.75 180.0 / -1 acos * ",                            &
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.50 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B23		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.75 180.0 / -1 acos * ",							&
+    	     E1 = " 1.50 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B3S		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.90 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+B31		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.90 180.0 / -1 acos * ",							&
+    	     E1 = " 1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1, 			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B32		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.90 180.0 / -1 acos * ",                            &
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = "-1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B33		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.90 180.0 / -1 acos * ",							&
+    	     E1 = "-1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B4S		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.90 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								& 
+			 E2 = "-1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+B41		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.90 180.0 / -1 acos * ",							&
+    	     E1 = "-1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B42		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.90 180.0 / -1 acos * ",                            &
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B43		: CSRCSBEN,															&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = " 0.90 180.0 / -1 acos * ",							&
+    	     E1 = " 1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1, 									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+
+w00		: watch, filename = "%s.w00", mode = coord
+w01		: watch, filename = "%s.w01", mode = coord
+w02		: watch, filename = "%s.w02", mode = coord
+w03		: watch, filename = "%s.w03", mode = coord
+w04		: watch, filename = "%s.w04", mode = coord
+w05		: watch, filename = "%s.w05", mode = coord
+
+M00		: MARK, fitpoint = 1
+MB0		: MARK, fitpoint = 1
+MB1		: MARK, fitpoint = 1
+MB2		: MARK, fitpoint = 1
+MB3		: MARK, fitpoint = 1
+MB4		: MARK, fitpoint = 1
+MB5		: MARK, fitpoint = 1
+MM0		: MARK, fitpoint = 1
+MM1		: MARK, fitpoint = 1
+MM2		: MARK, fitpoint = 1
+MM3		: MARK, fitpoint = 1
+MM4		: MARK, fitpoint = 1
+MM5		: MARK, fitpoint = 1
+MM6		: MARK, fitpoint = 1
+MM7		: MARK, fitpoint = 1
+MM8		: MARK, fitpoint = 1
+
+MU1		: MARK, fitpoint = 1
+MU2		: MARK, fitpoint = 1
+MU3		: MARK, fitpoint = 1
+MU4		: MARK, fitpoint = 1
+
+TWISS0	: TWISS, 	BETAX = 3.108647e+01, ALPHAX =-1.498796e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 1.405883e+01, ALPHAY = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAX0= 3.397702e+01, ALPHAX0=-3.719834e+00, ETAX0= 1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 2.515365e+00, ALPHAY0= 3.137122e-01, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+TWISS1	: TWISS, 	BETAX = 1.715065e+00, ALPHAX =-6.276341e-07, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 4.205733e+00, ALPHAY = 9.992480e-08, ETAY = 1.000000e-16, ETAYP = 1.000000e-16,								&
+				 	BETAX0= 1.715065e+00, ALPHAX0=-6.276341e-07, ETAX0= 1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 4.205733e+00, ALPHAY0= 9.992480e-08, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+TWISS1U	: TWISS, 	BETAX = 3.108647e+01, ALPHAX =-1.498796e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 1.405883e+01, ALPHAY = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAX0= 3.397702e+01, ALPHAX0=-3.719834e+00, ETAX0= 1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 2.515365e+00, ALPHAY0= 3.137122e-01, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+TWISS2	: TWISS, 	BETAX = 1.748505e+00, ALPHAX = 4.933330e-01, ETAX =-1.000000e-16, ETAXP = 1.000000e-16								&
+				 	BETAY = 3.823437e+01, ALPHAY = 4.487385e+00, ETAY = 1.000000e-16, ETAYP = 1.000000e-16								&
+				 	BETAX0= 1.748505e+00, ALPHAX0= 4.933330e-01, ETAX0=-1.000000e-16, ETAXP0= 1.000000e-16,								&
+					BETAY0= 3.823437e+01, ALPHAY0= 4.487385e+00, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16,
+TWISS2U	: TWISS, 	BETAY = 3.108647e+01, ALPHAY =-1.498796e+00, ETAY = 1.000000e-16, ETAYP = 1.000000e-16,								&
+				 	BETAX = 1.405883e+01, ALPHAX = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY0= 3.397702e+01, ALPHAY0=-3.719834e+00, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16,								&
+				 	BETAX0= 2.515365e+00, ALPHAX0= 3.137122e-01, ETAX0= 1.000000e-16, ETAXP0= 1.000000e-16
+TWISS3	: TWISS, 	BETAX = 2.374781e+00, ALPHAX = 8.684532e-02, ETAX =-1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 3.158520e+01, ALPHAY = 3.877836e+00, ETAY = 1.000000e-16, ETAYP = 1.000000e-16,								&
+				 	BETAX0= 2.374781e+00, ALPHAX0= 8.684532e-02, ETAX0=-1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 3.158520e+01, ALPHAY0= 3.877836e+00, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+TWISS3U	: TWISS, 	BETAX = 1.870971e+01, ALPHAX = 9.766346e-01, ETAX =-1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 2.351159e+01, ALPHAY =-1.206394e+00, ETAY = 1.000000e-16, ETAYP = 1.000000e-16,								&
+				 	BETAX0= 1.870971e+01, ALPHAX0= 9.766346e-01, ETAX0=-1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 2.351159e+01, ALPHAY0=-1.206394e+00, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+TWISS4	: TWISS, 	BETAX = 4.742518e+00, ALPHAX =-1.190539e-01, ETAX =-1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 3.175355e+01, ALPHAY =-1.735438e+00, ETAY = 1.000000e-16, ETAYP = 1.000000e-16,								&
+				 	BETAX0= 4.742518e+00, ALPHAX0=-1.190539e-01, ETAX0=-1.000000e-16, ETAXP0= 1.000000e-16,								&
+				 	BETAY0= 3.175355e+01, ALPHAY0=-1.735438e+00, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+
+!!!~~~ Drifts ~~~!!
+LB10	: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LL0		: CSRDRIFT, L = 2.500000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LM0		: CSRDRIFT, L = 5.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LM1		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LM2		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LMQ		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+
+!!!~~~ KICK Quadrupoles ~~~!!
+QLF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01
+QLD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01
+QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-6.699077e-03
+QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-2.168181e-03
+QLF1	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-8.121508e-03
+QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.520624e-02
+!QLD1	: QUAD,		L = 1.000000e-01, K1 =-2.474250e-01, DY =-1.520624e-02
+
+LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+KICKER	: LINE = (2*LM1, 2*BK, 2*LM1)
+KICKER1	: LINE = (2*LM0, 3*LM1, 5*KICKER, 0*LM1, 4*LM0)
+L01		: LINE = (15*LM0, 3*LM1)
+L02		: LINE = (5*LM0, 3*LM1)
+L03		: LINE = (7*LM0, 3*LM1)
+FODO0	: LINE = (2*QLF, L01, 2*QLD, L01)
+DOFO0	: LINE = (2*QLD, L01, 2*QLF, L01)
+
+!!!~~~ LTU1 ~~~!!
+LMM1	: CSRDRIFT, L = 2.256623e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+QB11	: QUAD, 	L = 1.000000e-01, K1 = 1.742369e+00
+QB12	: QUAD, 	L = 1.500000e-01, K1 = 7.575736e-01
+                                          
+QO11	: QUAD, 	L = 2.000000e-01, K1 = 0.54183470171855
+QO12	: QUAD, 	L = 2.000000e-01, K1 =-0.64735099883952
+QO13	: QUAD, 	L = 2.000000e-01, K1 = 1.435547269661168
+QO14	: QUAD, 	L = 2.000000e-01, K1 =-1.07778587092995
+QO15	: QUAD, 	L = 2.000000e-01, K1 =-6.930041e-01
+QO16	: QUAD, 	L = 2.000000e-01, K1 =-6.930041e-01
+QO17	: QUAD, 	L = 2.000000e-01, K1 =-6.930041e-01
+
+QM11	: QUAD, 	L = 1.000000e-01, K1 =-0.6398283527993578
+QM12	: QUAD, 	L = 1.000000e-01, K1 =-0.2881278606004981
+QM13	: QUAD, 	L = 1.000000e-01, K1 = 1.178007448023168
+QM14	: QUAD, 	L = 1.000000e-01, K1 =-0.3510827397905824
+QM15	: QUAD, 	L = 1.000000e-01, K1 =-6.930041e-01
+QM16	: QUAD, 	L = 1.000000e-01, K1 =-6.930041e-01
+
+QU11	: QUAD, 	L = 2.000000e-01, K1 =-5.775106e-01
+QU12	: QUAD, 	L = 2.000000e-01, K1 =-7.056892e-01
+QU13	: QUAD, 	L = 2.000000e-01, K1 = 1.228974e-00
+QU14	: QUAD, 	L = 2.000000e-01, K1 =-1.459948e-00
+
+MAT001	: LINE = (QO11, L02, QO12, L02, QO13, L02, QO14, 3*LM1)
+MAT01	: LINE = (TWISS0, 8*FODO0, MAT001)
+DBA11	: LINE = (B1S, MB0, B1S, 16*LM0, 0*QB11, 1*LM0, 1*QB12, 0*LM0, MB1, 0*LM0, 1*QB12, 1*LM0, 0*QB11, 16*LM0, B11, MB2, B11)
+DBA12	: LINE = (B12, MB3, B12, 16*LM0, 0*QB11, 1*LM0, 1*QB12, 0*LM0, MB4, 0*LM0, 1*QB12, 1*LM0, 0*QB11, 16*LM0, B13, MB5, B13)
+MAT11	: LINE = (2*LM0, 2*QM11, 5*LM0, 2*QM12, 5*LM0, 2*QM13, &
+				  5*LM0, 2*QM14, 4*LM0, 0*QM15, 0*LM0, 3*LM1, 1*LMM1)
+MAT13	: LINE = (TWISS2U, L03, QU11, L03, QU12, L03, QU13, L03, QU14, L03, MU1)
+LTU1	: LINE = (q, MAT01, M00, DBA11, MM0, MAT11, MM1, -MAT11, MM2, DBA12, -MAT001, -5*FODO0, L01, 2*QLF)
+LTU1A	: LINE = (q, MAT01, M00, DBA11, MM0, MAT11, MM1, -MAT11, MM2, DBA12, -MAT001, -8*FODO0, L01, 2*QLF, MAT13, FEL1)
+
+!!!~~~ LTU2 ~~~!!
+LMM2	: CSRDRIFT, L = 7.155144e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+QB21	: QUAD, 	L = 1.000000e-01, K1 = 1.278109e-00
+QB22	: QUAD, 	L = 1.500000e-01, K1 =-9.564540e-01
+                                          
+QM21	: QUAD, 	L = 1.000000e-01, K1 = 4.385813e-01
+QM22	: QUAD, 	L = 1.000000e-01, K1 =-1.737350e-00
+QM23	: QUAD, 	L = 1.000000e-01, K1 = 7.473128e-01
+QM24	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
+QM25	: QUAD, 	L = 1.000000e-01, K1 = 1.158713e-00
+QM26	: QUAD, 	L = 1.000000e-01, K1 =-1.872738e-00
+
+QU21	: QUAD, 	L = 1.000000e-01, K1 =-1.789349e-01
+QU22	: QUAD, 	L = 1.000000e-01, K1 =-5.068833e-01
+QU23	: QUAD, 	L = 1.000000e-01, K1 = 9.125465e-01
+QU24	: QUAD, 	L = 1.000000e-01, K1 =-5.376278e-01
+QU25	: QUAD, 	L = 1.000000e-01, K1 =-1.007698e-00
+QU26	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
+
+
+MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
+DBA21	: LINE = (B2S, MB0, B2S, 0*LM1, 10*LM0, 3*QB21, 3*LM0, 2*QB22, 1*LM0, MB1, 1*LM0, 2*QB22, 3*LM0, 3*QB21, 10*LM0, 0*LM1, B21, MB2, B21)
+DBA22	: LINE = (B22, MB3, B22, 0*LM1, 10*LM0, 3*QB21, 3*LM0, 2*QB22, 1*LM0, MB1, 1*LM0, 2*QB22, 3*LM0, 3*QB21, 10*LM0, 0*LM1, B23, MB5, B23)
+MAT21	: LINE = (5*LM1, 3*QM21, 12*LM1, 3*QM22, 12*LM1, 3*QM23, 12*LM1, 3*QM24, 12*LM1, 3*QM25, 12*LM1, 3*QM26, 2*LM1, 2*LM0, 1*LMM2)
+MAT2U	: LINE = (2*QU21, L03, 2*QU22, L03, 2*QU23, L03, 2*QU24, L03, MU2)
+LTU2	: LINE = (q, MAT02, DBA21, MM0, MAT21, MM1, -MAT21, MM2, DBA22, 2*LM1, 13*DOFO0)
+LTU2A	: LINE = (q, MAT02, DBA21, MM0, MAT21, MM1, -MAT21, MM2, DBA22, 2*LM1, 13*DOFO0, MAT2U, FEL2)
+
+!!!~~~ LTU3 ~~~!!
+LMM3	: CSRDRIFT, L = 6.571852e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+QB31	: QUAD, 	L = 1.000000e-01, K1 = 1.367176e+00
+QB32	: QUAD, 	L = 1.000000e-01, K1 =-1.670812e+00
+
+QO31	: QUAD, 	L = 2.000000e-01, K1 = 9.507338e-01
+QO32	: QUAD, 	L = 2.000000e-01, K1 =-1.379877e+00
+QO33	: QUAD, 	L = 2.000000e-01, K1 = 1.129089e+00
+QO34	: QUAD, 	L = 2.000000e-01, K1 =-1.557183e+00
+
+QM31	: QUAD, 	L = 2.000000e-01, K1 =-1.497314e-02
+QM32	: QUAD, 	L = 2.000000e-01, K1 =-1.102134e-00
+QM33	: QUAD, 	L = 2.000000e-01, K1 = 1.201756e-00
+QM34	: QUAD, 	L = 2.000000e-01, K1 =-1.493506e-00
+QM35	: QUAD, 	L = 2.000000e-01, K1 =-3.325844e-01
+QMF		: QUAD,		L = 1.000000e-01, K1 = 3.520221e-01
+QMD		: QUAD,		L = 1.000000e-01, K1 =-3.520221e-01
+
+QU31	: QUAD, 	L = 2.000000e-01, K1 =-2.517259e-01
+QU32	: QUAD, 	L = 2.000000e-01, K1 =-1.120314e-00
+QU33	: QUAD, 	L = 2.000000e-01, K1 = 1.315028e-00
+QU34	: QUAD, 	L = 2.000000e-01, K1 =-1.648087e-00
+
+MAT03	: LINE = (TWISS0, 3*FODO0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF1, L01, 2*QLD1, 5*LM0, 3*LM1)
+DBA31	: LINE = (B3S, MB0, B3S, 11*LM0, 1*LM1, QB31, QB31, 7*LM0, 1*LM1, QB32, MB1, QB32, 7*LM0, 1*LM1, QB31, QB31, &
+				  11*LM0, 1*LM1, B31, MB2, B31)
+DBA32	: LINE = (B32, MB3, B32, 11*LM0, 1*LM1, QB31, QB31, 7*LM0, 1*LM1, QB32, MB4, QB32, 7*LM0, 1*LM1, QB31, QB31, &
+				  11*LM0, 1*LM1, B33, MB5, B33)
+MAT31	: LINE = (11*LM0, 2*LM1, LMM3, QM31, 9*LM0, 3*LM1, QM32, 9*LM0, 3*LM1, QM33, 9*LM0, 3*LM1, QM34, 9*LM0, 3*LM1, QM35, 9*LM0, 3*LM1)
+FODO3	: LINE = (QMF, 9*LM0, 3*LM1, QMD, QMD, 9*LM0, 3*LM1, QMF)
+MAT33	: LINE = (L03, QU31, L03, QU32, L03, QU33, L03, QU34, L03, MU3)
+LTU3	: LINE = (q, MAT03, DBA31, MM0, MAT31, MM1, QMF, 6*FODO3, QMF, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
+LTU3A	: LINE = (q, MAT03, DBA31, MM0, MAT31, MM1, QMF, 6*FODO3, QMF, MM3, -MAT31, MM4, DBA32, MAT33, FEL3)
+
+!!!~~~ LTU4 ~~~!!
+LMM4	: CSRDRIFT, L = 7.493883e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LMM42	: CSRDRIFT, L = 8.560000e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+QB41	: QUAD, 	L = 1.000000e-01, K1 = 1.543653e+00
+QB42	: QUAD, 	L = 1.000000e-01, K1 =-1.156300e+00
+
+QM41	: QUAD, 	L = 1.000000e-01, K1 = 5.955470e-01
+QM42	: QUAD, 	L = 1.000000e-01, K1 =-1.130658e+00
+QM43	: QUAD, 	L = 1.000000e-01, K1 = 1.133638e+00
+QM44	: QUAD, 	L = 1.000000e-01, K1 =-6.930041e-01
+
+DBA41	: LINE = (B4S, MB3, B4S, 11*LM0, 1*LM1, QB41, QB41, 7*LM0, 1*LM1, QB42, MB4, QB42, 7*LM0, 1*LM1, QB41, QB41, 11*LM0, 1*LM1, &
+				  B41, MB5, B41)
+DBA42	: LINE = (B42, MB0, B42, 11*LM0, 1*LM1, QB41, QB41, 7*LM0, 1*LM1, QB42, MB1, QB42, 7*LM0, 1*LM1, QB41, QB41, 11*LM0, 1*LM1, &
+				  B43, MB2, B43)
+MAT41	: LINE = (15*LM0, 4*LM1, 1*LMM4, 2*QM41, 9*LM0, 3*LM1, 2*QM42, 9*LM0, 3*LM1, 2*QM43, 9*LM0, 3*LM1, 2*QM44, 9*LM0, 4*LM1, QMF)
+
+LTU4	: LINE = (q, TWISS1, 000*LM1, DBA21, MM0, MAT21, -MAT21, MM1, DBA22, 44*LM0, DBA41, MAT41, 4*FODO3, -MAT41, DBA42, 80*LM0, DBA21, MM0, MAT21, 275*LM1, 1*LMM42, MM1, -MAT21, MM2, DBA22, 200*LM0)
+
+USE, 	MAT02
+RETURN

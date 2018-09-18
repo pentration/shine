@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+curdir=$(pwd)
+
+cd $curdir/run
+
+
+outdir=out/kick
+datdir=$curdir/dat/kick
+flrdir=$curdir/dat/flr
+
+# mpirun -np 4 Pelegant run.ele
+elegant run.ele
+
+sddsxref $outdir/run.twi $outdir/run.sig $outdir/run.chs -take=ecnx,ecny,enx,eny,St,Sdelta
+sddsxref $outdir/run.chs $outdir/run.flr $outdir/run.chs -take=X,Y,Z,theta,psi,phi
+sddsxref $outdir/run.chs $outdir/run.cen $outdir/run.chs -take=Cx,Cy
+sddsxref $outdir/run.chs $outdir/run.mag $outdir/run.chs -take=Profile
+sddsxref $outdir/run.chs $outdir/run.mat $outdir/run.chs -take=R56
+
+sddsprocess $outdir/run.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
+sddsprocess $outdir/run.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
+sdds2plaindata $outdir/run.chs $datdir/param.dat -noRowCount -col=s "-separator= " -col=ElementType -col=betax -col=betay -col=etax -col=etay -col=etaxp -col=etayp -col=enx -col=eny -col=sigx -col=sigy -col=R56
+sdds2plaindata $outdir/run.chs $datdir/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
+sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" $outdir/run.chs -width=1000 $datdir/twiss.dat
+sdds2plaindata $outdir/run.mag $datdir/prof.dat -noRowCount "-separator= " -col=s -col=Profile
+sdds2plaindata $outdir/run.flr $flrdir/kick-flr.dat -col=ElementName "-separator= " -col=s -col=X -col=Y -col=Z -col=theta -col=phi -col=psi
+
+# elegant2genesis linac/lhon2.sdds linac/lhon2.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
+# sdds2plaindata linac/lhon2.gen $datdir/current0.dat -noRowCount -col=s "-separator= " -col=t -col=current
+# elegant2genesis $outdir/run.w04 $outdir/run.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
+# sdds2plaindata $outdir/run.gen $datdir/current.dat -noRowCount -col=s "-separator= " -col=t -col=current
+# sdds2plaindata $outdir/run.w04 $datdir/t-p.dat -noRowCount "-separator= " -col=t -col=p
+
+# dist.py
+
+# cp current.dat lhon2-current.dat
+# cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1
+# sddsplot -col=s,sig? -topline='Beam Size' -graph=line,vary -legend run.twi
+# sddsplot -col=s,current -topline='Current' -graph=line,vary -legend run.gen
+
+
+
+###### dump commands ######
+
+# sddsprocess run.sig -retain=column,St,Sdelta,s,ElementName -noWarnings
+# sddsprocess run.fin -retain=parameter,St,Sdelta -noWarnings
+# sddsprocess run.twi  -retain=column,s,beta?,alpha?,eta?,eta?p -retain=parameter, -noWarnings
+# for i in {3,5}
+# do
+# sddsprocess run.w0$i -process=dt,average,t -define=column,dp,"p pCentral - pCentral /" -redefine=column,dt,"dt t -" \
+# 	-retain=parameter,s,pCentral,PreviousElementName -retain=column,p,dt,x,y -noWarnings
+# sddshist run.w0$i -pipe=output -dataColumn=dt -bins=500 -statistics | sddsprocess -pipe=input runParticleHist.w0$i -define=column,particleNum,"frequency"
+#
+# sddsplot run.w0$i -column=dt,dp -topline='Longitudinal Phase Space_w0'$i  -graphic=dot
+# sddsplot runParticleHist.w0$i -column=dt,frequency -topline='Longitudinal Particle Distribition_w0'$i -graphic=line -yLabel='Num of Particle'
+# sddsplot run.w0$i -column=x,y -topline='Transverse Phase Space_w0'$i  -graphic=dot
+#
+# sddsconvert run.w0$i runW0$i.Asc -ascii
+# sddsconvert runParticleHist.w0$i runParticleHistW0$i.Asc -ascii
+# done
+
+
+# sddsplot run.twi -column=s,beta? -topline='Beta' -graph=line,vary -legend
+# sddsplot run.twi -column=s,alpha? -topline='Alpha' -graph=line,vary -legend
+# sddsplot run.twi -column=s,eta? -topline='Dispersion' -graph=line,vary -legend
+# sddsplot run.twi -column=s,eta?p -topline="Dispersion'" -graph=line,vary -legend
+
+# sddsplot run.sig -column=s,St
+# sddsplot run.sig -column=s,Sdelta
+
+# sddsconvert run.fin runFin.Asc -ascii
+# sddsconvert run.twi runTwi.Asc -ascii
+# sddsconvert run.sig runSig.Asc -ascii
+# sddsconvert run.out runOut.Asc -ascii
+# sddsconvert run.cen runCen.Asc -ascii
+
+# mv run.w0* $outdir/
+
+cd $curdir
+
+###### dump commands ######
