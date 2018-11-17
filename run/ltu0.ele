@@ -1,0 +1,80 @@
+&global_settings
+!	log_file					= dclsDog.log,
+&end
+!&divide_elements
+!	name						= LM0,
+!	type						= *DRIFT,
+!	divisions					= 5,
+!&end
+!&divide_elements
+!	name						= *,
+!	type						= QUAD,
+!	divisions					= 10,
+!&end
+
+&run_setup
+	lattice						= optim/ltu0run.lte
+	default_order				= 2,
+	p_central					= 1.631685e+04
+!	use_beamline				= LTU2,
+	sigma						= "out/ltu0/%s.sig",
+	centroid					= "out/ltu0/%s.cen",
+	output						= "out/ltu0/%s.out",
+	final						= "out/ltu0/%s.fin",
+	magnets						= "out/ltu0/%s.mag",
+	print_statistics			= 1,
+	always_change_p0			= 1,
+&end
+
+&run_control 
+&end
+
+&twiss_output
+	filename					= "out/ltu0/%s.twi",
+	matched						= 0,
+!	beta_x						= 2.535802e+01,
+!	beta_y						= 1.898043e+00,
+!	alpha_x						=-3.715753e+00,
+!	alpha_y						= 3.290709e-01,
+	concat_order				= 1,
+&end
+
+&floor_coordinates
+	filename					= "out/ltu0/%s.flr",
+	X0							= 0.0;
+	Z0							= 0.0;
+	theta0						= 0.0;
+	include_vertices			= 0; 
+	long vertices_only			= 0; 
+	long magnet_centers			= 0;
+&end
+
+&matrix_output
+    printout					= "out/ltu0/%s.mpr",
+	SDDS_output					= "out/ltu0/%s.mat"
+    printout_order				= 1,
+    full_matrix_only			= 0,
+    SDDS_output_order			= 1,
+    individual_matrices			= 0,
+    output_at_each_step			= 0,
+!	start_from_occurence		= 0,
+&end
+ 
+&bunched_beam
+	n_particles_per_bunch		= 1,
+	emit_nx						= 3.086146e-07,
+	emit_ny						= 2.513495e-07,
+	Po							= 1.631685e+04,
+	sigma_dp					= 1.0e-4,
+	sigma_s						= 2.0e-5,
+	distribution_type[0] 		= 3*"gaussian"!,"hard-edge"
+	distribution_cutoff[0]		= 5*5,
+	symmetrize 					= 1,
+	enforce_rms_values[0]		= 1,1,1,
+	bunch						= out/ltu0/%s.bun
+&end
+
+&track 
+	center_on_orbit				= 0
+	offset_by_orbit				= 1
+&end

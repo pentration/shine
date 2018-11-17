@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1/run
+
+# mpirun -np 4 Pelegant ltu0.ele
+elegant ltu0.ele
+# sddsprocess ltu0.sig -retain=column,St,Sdelta,s,ElementName -noWarnings
+# sddsprocess ltu0.fin -retain=parameter,St,Sdelta -noWarnings
+# sddsprocess ltu0.twi  -retain=column,s,beta?,alpha?,eta?,eta?p -retain=parameter, -noWarnings
+# for i in {3,5}
+# do
+# sddsprocess ltu0.w0$i -process=dt,average,t -define=column,dp,"p pCentral - pCentral /" -redefine=column,dt,"dt t -" \
+# 	-retain=parameter,s,pCentral,PreviousElementName -retain=column,p,dt,x,y -noWarnings
+# sddshist ltu0.w0$i -pipe=output -dataColumn=dt -bins=500 -statistics | sddsprocess -pipe=input runParticleHist.w0$i -define=column,particleNum,"frequency"
+#
+# sddsplot ltu0.w0$i -column=dt,dp -topline='Longitudinal Phase Space_w0'$i  -graphic=dot
+# sddsplot runParticleHist.w0$i -column=dt,frequency -topline='Longitudinal Particle Distribition_w0'$i -graphic=line -yLabel='Num of Particle'
+# sddsplot ltu0.w0$i -column=x,y -topline='Transverse Phase Space_w0'$i  -graphic=dot
+#
+# sddsconvert ltu0.w0$i runW0$i.Asc -ascii
+# sddsconvert runParticleHist.w0$i runParticleHistW0$i.Asc -ascii
+# done
+
+
+# sddsplot ltu0.twi -column=s,beta? -topline='Beta' -graph=line,vary -legend
+# sddsplot ltu0.twi -column=s,alpha? -topline='Alpha' -graph=line,vary -legend
+# sddsplot ltu0.twi -column=s,eta? -topline='Dispersion' -graph=line,vary -legend
+# sddsplot ltu0.twi -column=s,eta?p -topline="Dispersion'" -graph=line,vary -legend
+
+# sddsplot ltu0.sig -column=s,St
+# sddsplot ltu0.sig -column=s,Sdelta
+
+# sddsconvert ltu0.fin runFin.Asc -ascii
+# sddsconvert ltu0.twi runTwi.Asc -ascii
+# sddsconvert ltu0.sig runSig.Asc -ascii
+# sddsconvert ltu0.out runOut.Asc -ascii
+# sddsconvert ltu0.cen runCen.Asc -ascii
+
+# mv ltu0.w0* out/ltu0/
+
+sddsxref out/ltu0/ltu0.twi out/ltu0/ltu0.sig out/ltu0/ltu0.chs -take=ecnx,ecny,enx,eny,St,Sdelta
+sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.flr out/ltu0/ltu0.chs -take=X,Y,Z,theta,psi,phi
+sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.cen out/ltu0/ltu0.chs -take=Cx,Cy
+sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.mag out/ltu0/ltu0.chs -take=Profile
+sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.mat out/ltu0/ltu0.chs -take=R56
+sddsprocess out/ltu0/ltu0.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
+sddsprocess out/ltu0/ltu0.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
+sdds2plaindata out/ltu0/ltu0.chs ../dat/kick/kick.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betax -col=Y -col=Cy -col=CYy -col=betay -col=etax -col=etay -col=etaxp -col=etayp
+sdds2plaindata out/ltu0/ltu0.chs ../dat/kick/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
+sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" out/ltu0/ltu0.chs -width=1000 ../dat/kick/twiss.dat
+sdds2plaindata out/ltu0/ltu0.mag ../dat/kick/prof.dat -noRowCount "-separator= " -col=s -col=Profile
+sdds2plaindata out/ltu0/ltu0.flr ../dat/flr/kick-flr.dat -col=ElementName "-separator= " -col=s -col=X -col=Y -col=Z -col=theta -col=phi -col=psi
+
+# elegant2genesis linac/lhon2.sdds linac/lhon2.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
+# sdds2plaindata linac/lhon2.gen ../dat/kick/current0.dat -noRowCount -col=s "-separator= " -col=t -col=current
+# elegant2genesis out/ltu0/ltu0.w04 out/ltu0/ltu0.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
+# sdds2plaindata out/ltu0/ltu0.gen ../dat/kick/current.dat -noRowCount -col=s "-separator= " -col=t -col=current
+# sdds2plaindata out/ltu0/ltu0.w04 ../dat/kick/t-p.dat -noRowCount "-separator= " -col=t -col=p
+
+# ./dist.py
+
+# cp current.dat lhon2-current.dat
+# cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1
+# sddsplot -col=s,sig? -topline='Beam Size' -graph=line,vary -legend ltu0.twi
+# sddsplot -col=s,current -topline='Current' -graph=line,vary -legend ltu0.gen
+
+exec ../plt/kick.py
