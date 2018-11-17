@@ -4,74 +4,46 @@
 import numpy as np
 import scipy.constants as spc
 import string
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-#import matplotlib.pylab as pl
 import enhancePlot as ep
-import matplotlib
-# import re
+import countFreq
+
 plt.style.use('messiah')
 
 # os.system('./run/runScript')
 
-t,p = np.loadtxt('../../dat/ltu3/lhoff/t-p0.dat',usecols=(0,1),unpack=True,skiprows=0)
-dz,ipk = np.loadtxt('../../dat/ltu3/lhoff/current0.dat',usecols=(0,2),unpack=True,skiprows=0)
+tpDistribution = '../../dat/ltu3/t-p.bin'
+currentProfile = '../../dat/ltu3/current.dat'
+nParticle = np.loadtxt('../../dat/ltu3/nParticle.dat',unpack=True)
+tp = np.fromfile(open(tpDistribution)).reshape(int(nParticle),2).T
+dz,dt,ipk = np.loadtxt(currentProfile,unpack=True)
 
-dz=dz*spc.mega
-ipk=ipk/spc.kilo
+p_mean = np.mean(tp[1])
 
 print("LOAD COMPLETE")
 
+h_grid = 500
+v_grid = 300
 
-h_grid = 1000
-v_grid = 500
+s,g,freq = countFreq.countFreq(tp[0],tp[1],h_grid,v_grid)
 
-[t_mean,p_mean]=[np.mean(t),np.mean(p)]
-ct=t
-dp=p
+print("COUNT COMPLETE")
 
-for i in range(len(ct)):
-    ct[i]=(t_mean-t[i])*spc.c*spc.mega
-    dp[i]=(p[i]-p_mean)/p_mean*spc.kilo
-
-[ct_max,ct_min]=[np.max(ct),np.min(ct)]
-[dp_max,dp_min]=[np.max(dp),np.min(dp)]
-
-dct = 1.01*(ct_max-ct_min)/(h_grid-1)
-ddp = 1.01*(dp_max-dp_min)/(v_grid-1)
-s = np.linspace(ct_min-0.01*dct,ct_max+0.01*dct,h_grid)
-g = np.linspace(dp_min-0.01*ddp,dp_max+0.01*ddp,v_grid)
-
-tp = [0]*v_grid
-for i in range(v_grid):
-    tp[i]=[0]*h_grid
-
-# print tp
-for i in range(len(ct)):
-    s1=int(round((ct[i]-ct_min+0.01*dct)/dct))
-    g1=int(round((dp[i]-dp_min+0.01*ddp)/ddp))
-    tp[g1][s1]=tp[g1][s1]+1
-    # ct[i]=(ct_mean-ct[i])*spc.kilo
-
-fig0   = plt.figure(figsize=(8,5),dpi=100,facecolor='white');
-ax0 = fig0.add_axes([0.15, 0.20, 0.70, 0.70])
-plt1 = ep.enhancePlot(title="t-p phase space with laser-heater off")
-# cmap = matplotlib.cm.binary
-# cmap = matplotlib.cm.inferno
-# cmap = matplotlib.cm.magma
-cmap = matplotlib.cm.jet
-ax0.contourf(s,g,tp,cmap=cmap)
-plt1.eSetPlot(ax0,axis=[r'$ct\ ({\mu}m)$',r'$\Delta{p}/p\ (\perthousand)$'])
+fig0   = plt.figure(facecolor='white');
+ax0 = fig0.add_axes([0.12, 0.20, 0.68, 0.70])
+plt1 = ep.enhancePlot(mt='o',ms=0.1,title='Longitudinal Phase Space - LTU3')
+gci = ax0.contourf(-s*spc.c*spc.mega,g/p_mean*spc.kilo,freq)
+plt1.eSetPlot(ax0,axis=[r'$z\ (\mu m)$',r'$\Delta{p}/p\ (\perthousand)$'])
+position = fig0.add_axes([0.90, 0.20, 0.03, 0.70])
+cb=plt.colorbar(gci,cax=position,orientation='vertical')
 ax01=ax0.twinx()
-plt1.ePlot(ax01,dz,ipk,mt='-',cl='r',lw=1.5,pltLabel=[r'$I_{pk}$'])
-# plt1.eSetPlot(ax01)
-ax01.set_ylabel(r'$I_{pk}\ (kA)$',fontsize='xx-large')
-ax01.set_xlim([ct_min,ct_max])
-ax01.set_ylim([0,np.max(ipk)*1.1])
-# ax6.legend(l1,[r'End of Linac',r'End of LTU3'],bbox_to_anchor=(0.50,1.10),ncol=2)
-ax01.legend(loc='upper center',bbox_to_anchor=(0.90,1.12),frameon=False,fontsize='large')
-plt.yticks(fontsize='large')
+ax01.plot(dz*spc.mega,ipk/spc.kilo,'-',c='r',lw=1.0)
+plt1.eSetPlot(ax01)
+ax01.set_ylabel(r'$I_{pk}\ (kA)$')
+ax01.set_xlim([ax0.get_xlim()[0],ax0.get_xlim()[1]])
+ax01.ticklabel_format(style='plain',axis='y')
 
 plt.show()
-fig0.savefig('../../fig/ltu3/t-p0.eps')
-
+fig0.savefig('../../fig/ltu3/t-p.png')
 
