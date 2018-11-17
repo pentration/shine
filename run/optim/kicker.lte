@@ -1,7 +1,7 @@
 q		: charge, total=0.1e-9
 
 BK		: CSRCSBEN,															&
-    	     L = 2.500000e-01,												&
+    	     L = 4.000000e-01,												&
 			 ANGLE =  5.000000e-05,											&
     	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
     	     HGAP = 0.0135, NONLINEAR = 1,									&
@@ -10,6 +10,39 @@ BK		: CSRCSBEN,															&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
     	     OUTPUT_INTERVAL = 10, CSR = 1
     	
+B2S		: CSRCSBEN,                                                     	&
+    	     L = 2.500000e-01, 							  					&
+			 ANGLE = "-0.75 180.0 / -1 acos * ",                          	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = "-1.50 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+
+% 1.65472595 2 * 1e-3 * sto yangle
+
+BY1		: CSRCSBEN,                                                     	&
+    	     L = 1.000000e-01, 							  					&
+			 ANGLE = "yangle",        				                  	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 TILT = " 90.0 180.0 / -1 acos * "								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+
+BY2		: CSRCSBEN,                                                     	&
+    	     L = 1.000000e-01, 							  					&
+			 ANGLE = "yangle",        				                  	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 TILT = " -90.0 180.0 / -1 acos * "								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
 
 w00		: watch, filename = "%s.w00", mode = coord
 w01		: watch, filename = "%s.w01", mode = coord
@@ -56,20 +89,35 @@ LMQ		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 !!!~~~ KICK Quadrupoles ~~~!!
 QLF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01
 QLD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01
-QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-6.699077e-03
-QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-2.168181e-03
-QLF1	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-8.121508e-03
-QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.520624e-02
+QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.970249628480021e-03
+QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-6.446088864302186e-03
+QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.683590848536911e-02
 !QLD1	: QUAD,		L = 1.000000e-01, K1 =-2.474250e-01, DY =-1.520624e-02
+!QLF1	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-8.121508e-03
+
+B0S		: CSRCSBEN,                                                     	&
+    	     L = 1.000000e-01, 							  					&
+			 ANGLE = 4.06912E-04,        				                  	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 TILT = " -90.0 180.0 / -1 acos * "								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
 
 LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-KICKER	: LINE = (2*LM1, 2*BK, 2*LM1)
-KICKER1	: LINE = (2*LM0, 3*LM1, 5*KICKER, 0*LM1, 4*LM0)
+KICKER	: LINE = (LL0, 2*BK, LL0)
+KICKER1	: LINE = (7*LM1, 5*KICKER, 6*LM1)
 L01		: LINE = (15*LM0, 3*LM1)
 L02		: LINE = (5*LM0, 3*LM1)
 L03		: LINE = (7*LM0, 3*LM1)
 FODO0	: LINE = (2*QLF, L01, 2*QLD, L01)
 DOFO0	: LINE = (2*QLD, L01, 2*QLF, L01)
+
+
+C0		: CENTER, X=1,XP=1,Y=1,YP=1
+F0		: FLOOR, X=0,Y=1.687816921859339e-02,PHI=0
 
 
 !!!~~~ LTU2 ~~~!!
@@ -91,8 +139,9 @@ QU24	: QUAD, 	L = 1.000000e-01, K1 =-5.376278e-01
 QU25	: QUAD, 	L = 1.000000e-01, K1 =-1.007698e-00
 QU26	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
 
-
-MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
+!MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
+MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, 15*LM0, B0S, 2*LM1, 2*QLD1, C0, F0, 3*LM1, 10*LM1,&
+				2*LM0, MM0, BY1, 10*LM0, BY2, MM1, 20*LM0)
 
 USE, 	MAT02
 RETURN
