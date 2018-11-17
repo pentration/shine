@@ -13,6 +13,17 @@ BK		: CSRCSBEN,															&
 			 TILT = " -90.0 180.0 / -1 acos * ",							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
     	     OUTPUT_INTERVAL = 10, CSR = 1
+
+B0S		: CSRCSBEN,                                                     	&
+    	     L = 1.000000e-01, 							  					&
+			 ANGLE = 2.377050E-04,        				                  	&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.00 180.0 / -1 acos * ",								&
+			 TILT = " -90.0 180.0 / -1 acos * "								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1        								
     	
 B1S		: CSRCSBEN,                                                     	&
     	     L = 2.500000e-01, 							  					&
@@ -302,7 +313,8 @@ QU25	: QUAD, 	L = 1.000000e-01, K1 =-1.007698e-00
 QU26	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
 
 
-MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
+!MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
+MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, 15*LM0, B0S, 2*LM1, 2*QLD1, 10*LM0)
 DBA21	: LINE = (B2S, MB0, B2S, 0*LM1, 10*LM0, 3*QB21, 3*LM0, 2*QB22, 1*LM0, MB1, 1*LM0, 2*QB22, 3*LM0, 3*QB21, 10*LM0, 0*LM1, B21, MB2, B21)
 DBA22	: LINE = (B22, MB3, B22, 0*LM1, 10*LM0, 3*QB21, 3*LM0, 2*QB22, 1*LM0, MB1, 1*LM0, 2*QB22, 3*LM0, 3*QB21, 10*LM0, 0*LM1, B23, MB5, B23)
 MAT21	: LINE = (5*LM1, 3*QM21, 12*LM1, 3*QM22, 12*LM1, 3*QM23, 12*LM1, 3*QM24, 12*LM1, 3*QM25, 12*LM1, 3*QM26, 2*LM1, 2*LM0, 1*LMM2)
