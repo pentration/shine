@@ -44,7 +44,7 @@ sddsxref out/kick/kicker.chs out/kick/kicker.mag out/kick/kicker.chs -take=Profi
 sddsxref out/kick/kicker.chs out/kick/kicker.mat out/kick/kicker.chs -take=R56
 sddsprocess out/kick/kicker.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
 sddsprocess out/kick/kicker.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
-sdds2plaindata out/kick/kicker.chs ../dat/kick/kick.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betax -col=Y -col=Cy -col=CYy -col=betay
+sdds2plaindata out/kick/kicker.chs ../dat/kick/kick.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betax -col=Y -col=Cy -col=CYy -col=betay -col=etax -col=etay -col=etaxp -col=etayp
 sdds2plaindata out/kick/kicker.chs ../dat/kick/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
 sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" out/kick/kicker.chs -width=1000 ../dat/kick/twiss.dat
 sdds2plaindata out/kick/kicker.mag ../dat/kick/prof.dat -noRowCount "-separator= " -col=s -col=Profile
@@ -62,3 +62,5 @@ sdds2plaindata out/kick/kicker.flr ../dat/flr/kick-flr.dat -col=ElementName "-se
 # cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1
 # sddsplot -col=s,sig? -topline='Beam Size' -graph=line,vary -legend kicker.twi
 # sddsplot -col=s,current -topline='Current' -graph=line,vary -legend kicker.gen
+
+exec ../plt/kick.py
