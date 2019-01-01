@@ -31,7 +31,7 @@
 	verbose = 1, output_sparsing_factor = 10
 &end
 
-&optimization_term term = "max.betax 200 .1 segt", weight=1.0 &end        
+&optimization_term term = "max.betax 150 .1 segt", weight=1.0 &end        
 &optimization_term term = "max.betay 150 .1 segt", weight=1.0 &end
 
 !! Optimization terms for DBA1 !!
@@ -41,8 +41,8 @@
 &optimization_term term = "MM0#1.etax 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB1#1.alphax 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB1#1.alphay 0.00 - abs", weight=1.0 &end
-&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=100 &end
-!&optimization_term term = "MB2#1.nuy MB0#1.nuy - abs 0.5 - abs", weight=1.0 &end
+&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=10 &end
+&optimization_term term = "MB2#1.nuy MB0#1.nuy - abs 0.5 - abs", weight=1.0 &end
 
 !&optimization_term term = "MM1#1.etay 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MM1#1.etayp 0.00 - abs", weight=1 &end
@@ -59,7 +59,7 @@
 !&optimization_term term = "MM1#1.nux MB2#1.nux - abs 0.25 - abs", weight=1.0 &end
 !&optimization_term term = "MM1#1.nuy MB2#1.nuy - abs 0.25 - abs", weight=1.0 &end
 
-!&optimization_variable name = QB31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+&optimization_variable name = QB31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 &optimization_variable name = QB32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QB33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QY31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
