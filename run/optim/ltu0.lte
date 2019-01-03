@@ -122,14 +122,14 @@ BYS		: CSRCSBEN,                                                     	&
 !    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
 !    	     OUTPUT_INTERVAL = 10, CSR = 1        								
 
-%  1e-3 * sto yangle
+%  4e-3 * sto yangle
 
 BY1		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
 			 ANGLE = "yangle",        				                  	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 TILT = " 90.0 180.0 / -1 acos * "								&
+			 TILT = " -90.0 180.0 / -1 acos * "								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
 			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
@@ -140,7 +140,7 @@ BY2		: CSRCSBEN,                                                     	&
 			 ANGLE = "yangle",        				                  	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 TILT = " -90.0 180.0 / -1 acos * "								&
+			 TILT = " 90.0 180.0 / -1 acos * "								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
 			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
@@ -173,11 +173,12 @@ LMM3	: CSRDRIFT, L = 6.571852e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 !QB33	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
 !QB34	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
 
-QB31	: QUAD, 	L = 2.000000e-01, K1 = 7.012130389745685e-01
-QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.088180560824258e-01
+QB31	: QUAD, 	L = 2.000000e-01, K1 = 7.05869121907268e-01
+QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.89433070395250e-01
 QB33	: QUAD, 	L = 2.000000e-01, K1 = 6.769144842930302e-01
-QY31	: QUAD, 	L = 2.000000e-01, K1 = 1.589024839726267
-QY32	: QUAD, 	L = 2.000000e-01, K1 =-1.46628812339135
+QY30	: QUAD, 	L = 2.000000e-01, K1 =-8.153309810291871e-01
+QY31	: QUAD, 	L = 2.000000e-01, K1 = 1.519975486179682e+00
+QY32	: QUAD, 	L = 2.000000e-01, K1 = 1.423204324981989e+00
 
 QO31	: QUAD, 	L = 2.000000e-01, K1 = 9.507338e-01
 QO32	: QUAD, 	L = 2.000000e-01, K1 =-1.379877e+00
@@ -200,17 +201,22 @@ QU33	: QUAD, 	L = 2.000000e-01, K1 = 1.315028e-00
 QU34	: QUAD, 	L = 2.000000e-01, K1 =-1.648087e-00
 
 LY1		: DRIF,		L = 1.000000e-01
-LY2		: DRIF,		L = 1.225391417704487e-01
+LY2		: DRIF,		L = 1.291661e-01
+LD3		: DRIF,		L = 2.120000e-03
 
+TWISS2	: TWISS, 	BETAX = 1.811408e+01, ALPHAX =-2.498071e+00, ETAX =-3.613961e-07, ETAXP = 3.936768e-07, 							&
+					BETAY = 3.136321e+01, ALPHAY =-5.537984e+00, ETAY = 8.162827e-02, ETAYP = 8.938232e-03,
 
-DBA31	: LINE = (MAT03, B3S, 12*LM0, 1*LM1, 2*QB31, 5*LM0, 0*LM1, QB32, MB1, QB32, 0*LM1, 5*LM0, 2*QB31, &
+DBA31	: LINE = (MAT03, B3S, 12*LM0, 1*LM1, 2*QB31, 5*LM0, 0*LM1, QB32, MB1, w00, QB32, 0*LM1, 5*LM0, 2*QB31, &
 				  12*LM0, 1*LM1, B31, MB2, B31, MM0)
 !DBA31	: LINE = (MAT03, B3S, 10*LM0, 0*LM1, 0*LM1, QB32, MB1, QB32, 0*QB31, &
 !				  10*LM0, 0*LM1, B31, MB2, B31, MM0)
-MAT30	: LINE = (1*LM0, LY1, BY1, 9*LM0, QY31, 1*LM0, QY32, 0*LM1, 10*LM0, LY2, BY2, MM1, 10*LM0)				  
-MAT31	: LINE = (5*LM0, 3*LM1, LMM3, QM31, 5*LM0, 3*LM1, QM32, 5*LM0, 3*LM1, QM33, 5*LM0, 3*LM1, QM34, 5*LM0, 3*LM1, MM2)!, QM35, 15*LM0, 3*LM1)
+MAT30	: LINE = (4*LM0, 2*QY30, 4*LM0, BY1, 5*LM1, 2*QY31, 6*LM1, 1*LY2, 0*LM1, 2*QY32, 5*LM1, BY2, MM1)				  
+MAT31	: LINE = (2*LM0, QM31, 15*LM0, 3*LM1, QM32, 15*LM0, 3*LM1, QM33, 15*LM0, 3*LM1, QM34, 15*LM0, 3*LM1, QM35, MM2)
 FODO3	: LINE = (QMF, 15*LM0, 3*LM1, QMD, QMD, 15*LM0, 3*LM1, QMF)
-LTU3	: LINE = (q, DBA31, MAT30)!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
+DBA32	: LINE = (B32, MB3, B32, 11*LM0, 1*LM1, QB31, QB31, 7*LM0, 1*LM1, QB32, MB4, QB32, 7*LM0, 1*LM1, QB31, QB31, &
+				  11*LM0, 1*LM1, B33, MB5, B33)
+LTU3	: LINE = (q, DBA31, MAT30, MAT31), 161*LM0, 3*LM1, 1*LD3, DBA32, 20*LM0)!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
 
-USE, DBA31
+USE, LTU3
 RETURN

@@ -2,7 +2,7 @@
 # cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1/run
 
 # mpirun -np 4 Pelegant ltu0.ele
-elegant ltu0.ele
+# elegant ltu0.ele
 # sddsprocess ltu0.sig -retain=column,St,Sdelta,s,ElementName -noWarnings
 # sddsprocess ltu0.fin -retain=parameter,St,Sdelta -noWarnings
 # sddsprocess ltu0.twi  -retain=column,s,beta?,alpha?,eta?,eta?p -retain=parameter, -noWarnings
@@ -42,7 +42,7 @@ sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.flr out/ltu0/ltu0.chs -take=X,Y,Z,theta
 sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.cen out/ltu0/ltu0.chs -take=Cx,Cy
 sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.mag out/ltu0/ltu0.chs -take=Profile
 sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.mat out/ltu0/ltu0.chs -take=R56
-sddsprocess out/ltu0/ltu0.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
+sddsprocess out/ltu0/ltu0.chs -define=col,sigx,"enx pCentral0 / betax * Sdelta etax * sqr + sqrt 16 *",units=m -define=col,sigy,"eny pCentral0 / betay * Sdelta etay * sqr + sqrt 16 *",units=m
 sddsprocess out/ltu0/ltu0.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
 sdds2plaindata out/ltu0/ltu0.chs ../dat/kick/kick.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betax -col=Y -col=Cy -col=CYy -col=betay -col=etax -col=etay -col=etaxp -col=etayp
 sdds2plaindata out/ltu0/ltu0.chs ../dat/kick/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
