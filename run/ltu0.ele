@@ -13,7 +13,7 @@
 !&end
 
 &run_setup
-	lattice						= optim/ltu0.lte
+	lattice						= optim/ltu0run.lte
 	default_order				= 2,
 	p_central					= 1.631685e+04
 !	use_beamline				= LTU2,

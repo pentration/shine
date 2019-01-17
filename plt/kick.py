@@ -54,6 +54,6 @@ ax12.set_ylabel(r'$\Delta_{y}\ (mm)$',fontsize='x-large')
 plt.legend(l1+l2+l4+l5+l3,[r'$\beta_{x}$',r'$\beta_{y}$',r'$\eta_x$',r'$\eta_y$',r'$Y+C_y$'],frameon=False,loc="upper center",bbox_to_anchor=(0.50,1.015),ncol=3)
 
 plt.show()
-# fig1.savefig('../fig/kick/beta.eps')
+# fig1.savefig('../fig/kick/kick.png')
 
 

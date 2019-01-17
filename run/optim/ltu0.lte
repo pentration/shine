@@ -9,10 +9,14 @@ BK		: CSRCSBEN,															&
 			 TILT = " 90.0 180.0 / -1 acos * ",							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
     	     OUTPUT_INTERVAL = 10, CSR = 1
-    	
+
+%  1.80 180.0 / -1 acos * sto bendingAngle
+%  "bendingAngle" sin sto bendingSin
+%  1.00 "bendingAngle" * bendingSin / sto bendingPath
+
 B3S		: CSRCSBEN,                                                     	&
-    	     L = 4.000000e-01, 							  					&
-			 ANGLE = " 0.90 180.0 / -1 acos * ",                          	&
+    	     L = " bendingPath 2.0 / ", 							  					&
+			 ANGLE = " bendingAngle 2.0 /",                          	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 1.80 180.0 / -1 acos * ",								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
@@ -21,8 +25,8 @@ B3S		: CSRCSBEN,                                                     	&
     	     OUTPUT_INTERVAL = 10, CSR = 1
 			 
 B31		: CSRCSBEN,                                                     	&
-    	     L = 4.000000e-01, 							  					&
-			 ANGLE = " 0.90 180.0 / -1 acos * ",							&
+    	     L = " bendingPath 2.0 / ", 							  					&
+			 ANGLE = " bendingAngle 2.0 / ",							&
     	     E1 = " 1.80 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
@@ -30,8 +34,8 @@ B31		: CSRCSBEN,                                                     	&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1, 			&
     	     OUTPUT_INTERVAL = 10, CSR = 1
 B32		: CSRCSBEN,															&
-    	     L = 4.000000e-01, 							  					&
-			 ANGLE = "-0.90 180.0 / -1 acos * ",                            &
+    	     L = " bendingPath 2.0 / ", 							  					&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",                            &
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = "-1.80 180.0 / -1 acos * ",								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
@@ -39,8 +43,8 @@ B32		: CSRCSBEN,															&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
     	     OUTPUT_INTERVAL = 10, CSR = 1
 B33		: CSRCSBEN,															&
-    	     L = 4.000000e-01, 							  					&
-			 ANGLE = "-0.90 180.0 / -1 acos * ",							&
+    	     L = " bendingPath 2.0 / ", 							  					&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",							&
     	     E1 = "-1.80 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
@@ -122,7 +126,7 @@ BYS		: CSRCSBEN,                                                     	&
 !    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
 !    	     OUTPUT_INTERVAL = 10, CSR = 1        								
 
-%  4e-3 * sto yangle
+%  3e-3 * sto yangle
 
 BY1		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
@@ -173,23 +177,28 @@ LMM3	: CSRDRIFT, L = 6.571852e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 !QB33	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
 !QB34	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
 
-QB31	: QUAD, 	L = 2.000000e-01, K1 = 7.05869121907268e-01
-QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.89433070395250e-01
-QB33	: QUAD, 	L = 2.000000e-01, K1 = 6.769144842930302e-01
+QB31	: QUAD, 	L = 2.000000e-01, K1 = 6.928102077810062e-01
+QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.304375780945453e-01
+QB33	: QUAD, 	L = 2.000000e-01, K1 = 6.928122756357391e-01
+
 QY30	: QUAD, 	L = 2.000000e-01, K1 =-8.153309810291871e-01
-QY31	: QUAD, 	L = 2.000000e-01, K1 = 1.519975486179682e+00
-QY32	: QUAD, 	L = 2.000000e-01, K1 = 1.423204324981989e+00
+QY31	: QUAD, 	L = 2.000000e-01, K1 = 1.821375341911873e+00
+QY32	: QUAD, 	L = 2.000000e-01, K1 = 1.117276261889562e+00
 
 QO31	: QUAD, 	L = 2.000000e-01, K1 = 9.507338e-01
 QO32	: QUAD, 	L = 2.000000e-01, K1 =-1.379877e+00
 QO33	: QUAD, 	L = 2.000000e-01, K1 = 1.129089e+00
 QO34	: QUAD, 	L = 2.000000e-01, K1 =-1.557183e+00
 
-QM31	: QUAD, 	L = 2.000000e-01, K1 =1.795420210016045, TILT= " 45.0 180.0 / -1 acos * "
-QM32	: QUAD, 	L = 2.000000e-01, K1 =-1.663915332614984
-QM33	: QUAD, 	L = 2.000000e-01, K1 =1.49082222488165
-QM34	: QUAD, 	L = 2.000000e-01, K1 =0.2842630703077993
-QM35	: QUAD, 	L = 2.000000e-01, K1 =-3.325844e-01
+QM31	: QUAD, 	L = 2.000000e-01, K1 = 1.329977920671936e+00
+QM32	: QUAD, 	L = 2.000000e-01, K1 =-1.788012701513990e+00
+QM33	: QUAD, 	L = 2.000000e-01, K1 = 7.293753491538228e-01
+QM34	: QUAD, 	L = 2.000000e-01, K1 = 2.842630703077993e-01
+QM35	: QUAD, 	L = 2.000000e-01, K1 =-1.597510628015667e+00
+QM36	: QUAD, 	L = 2.000000e-01, K1 =-8.561455277586817e-01
+QM37	: QUAD, 	L = 2.000000e-01, K1 =-8.240938845723252e-01
+QM38	: QUAD, 	L = 2.000000e-01, K1 = 5.943142042755148e-01
+QM39	: QUAD, 	L = 2.000000e-01, K1 =-1.3325844e+00
 
 QMF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY=0
 QMD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY=0
@@ -201,22 +210,29 @@ QU33	: QUAD, 	L = 2.000000e-01, K1 = 1.315028e-00
 QU34	: QUAD, 	L = 2.000000e-01, K1 =-1.648087e-00
 
 LY1		: DRIF,		L = 1.000000e-01
-LY2		: DRIF,		L = 1.291661e-01
+LY2		: DRIF,		L = 2.055450e-01
 LD3		: DRIF,		L = 2.120000e-03
+LD4		: DRIF,		L = 2.120000e-03
 
-TWISS2	: TWISS, 	BETAX = 1.811408e+01, ALPHAX =-2.498071e+00, ETAX =-3.613961e-07, ETAXP = 3.936768e-07, 							&
-					BETAY = 3.136321e+01, ALPHAY =-5.537984e+00, ETAY = 8.162827e-02, ETAYP = 8.938232e-03,
+TWISS2	: TWISS, 	BETAX = 1.817740e+01, ALPHAX =-2.581761e+00, ETAX = 6.828132e-07, ETAXP = 1.677803e-07, 							&
+					BETAY = 1.553761e+01, ALPHAY =-2.946416e+00, ETAY = 6.908650e-02, ETAYP = 7.430032e-03,
 
-DBA31	: LINE = (MAT03, B3S, 12*LM0, 1*LM1, 2*QB31, 5*LM0, 0*LM1, QB32, MB1, w00, QB32, 0*LM1, 5*LM0, 2*QB31, &
-				  12*LM0, 1*LM1, B31, MB2, B31, MM0)
+TWISS3	: TWISS, 	BETAX = 2.757874e+00, ALPHAX =-1.079145e+00, ETAX =-3.512716e-07, ETAXP =-3.112544e-07, 							&
+					BETAY = 7.199201e+00, ALPHAY =-2.710702e+00, ETAY =-1.449055e-06, ETAYP =-6.478306e-07,
+
+DBA31	: LINE = (MAT03, B3S, 11*LM0, 4*LM1, 2*QB31, 4*LM0, 0*LM1, QB32, MB1, w00, QB32, 0*LM1, 4*LM0, 2*QB33, &
+				  11*LM0, 4*LM1, B31, MB2, B31, MM0)
 !DBA31	: LINE = (MAT03, B3S, 10*LM0, 0*LM1, 0*LM1, QB32, MB1, QB32, 0*QB31, &
 !				  10*LM0, 0*LM1, B31, MB2, B31, MM0)
-MAT30	: LINE = (4*LM0, 2*QY30, 4*LM0, BY1, 5*LM1, 2*QY31, 6*LM1, 1*LY2, 0*LM1, 2*QY32, 5*LM1, BY2, MM1)				  
-MAT31	: LINE = (2*LM0, QM31, 15*LM0, 3*LM1, QM32, 15*LM0, 3*LM1, QM33, 15*LM0, 3*LM1, QM34, 15*LM0, 3*LM1, QM35, MM2)
+MAT30	: LINE = (2*LM0, 2*QM31, 2*LM0, 2*QM32, 2*LM0, 2*QM33, 2*LM0, BY1, 8*LM1, 0*LM1, 2*QY31, 0*LM0, 8*LM1, LY2, 2*QY32, 8*LM1, 0*LM1, BY2, MM1)
+MAT31	: LINE = (7*LM0, 3*LM1, QM35, 7*LM0, 3*LM1, QM36, 7*LM0, 3*LM1, QM37, 7*LM0, 3*LM1, QM38, 7*LM0, 3*LM1, QM39, 3*LM0, 3*LM1, MM2)
 FODO3	: LINE = (QMF, 15*LM0, 3*LM1, QMD, QMD, 15*LM0, 3*LM1, QMF)
 DBA32	: LINE = (B32, MB3, B32, 11*LM0, 1*LM1, QB31, QB31, 7*LM0, 1*LM1, QB32, MB4, QB32, 7*LM0, 1*LM1, QB31, QB31, &
 				  11*LM0, 1*LM1, B33, MB5, B33)
-LTU3	: LINE = (q, DBA31, MAT30, MAT31), 161*LM0, 3*LM1, 1*LD3, DBA32, 20*LM0)!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
+LTU3	: LINE = (q, DBA31, MAT30)!, MAT31)
+
+MATCH	: LINE = (q, TWISS2, MAT30, MAT31)
+!, 186*LM0, 1*LD3, DBA32, 20*LM0)!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
 
 USE, LTU3
 RETURN

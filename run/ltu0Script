@@ -2,7 +2,7 @@
 # cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1/run
 
 # mpirun -np 4 Pelegant ltu0.ele
-# elegant ltu0.ele
+elegant ltu0.ele
 # sddsprocess ltu0.sig -retain=column,St,Sdelta,s,ElementName -noWarnings
 # sddsprocess ltu0.fin -retain=parameter,St,Sdelta -noWarnings
 # sddsprocess ltu0.twi  -retain=column,s,beta?,alpha?,eta?,eta?p -retain=parameter, -noWarnings
