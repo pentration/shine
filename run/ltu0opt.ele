@@ -33,59 +33,96 @@
 
 !! Optimization terms for DBA1 !!
 !&optimization_term term = "MB1#1.etaxp 0.00 - abs", weight=1.0 &end
-&optimization_term term = "MB1#1.etax 0.30 .1 segt", weight=1.0 &end
-&optimization_term term = "MM0#1.etaxp 0.00 - abs", weight=1.0 &end
-&optimization_term term = "MM0#1.etax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB1#1.etax 0.30 .1 segt", weight=1.0 &end
+!&optimization_term term = "MM0#1.etaxp 0.00 - abs", weight=5.0 &end
+!&optimization_term term = "MM0#1.etax 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB1#1.alphax 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB1#1.alphay 0.00 - abs", weight=1.0 &end
-&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=10 &end
+!&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=5.0 &end
 !&optimization_term term = "MB2#1.nuy MB0#1.nuy - abs 0.5 - abs", weight=1.0 &end
 !
-&optimization_term term = "MM1#1.etay 0.00 - abs", weight=1.0 &end
-&optimization_term term = "MM1#1.etayp 0.0 - abs", weight=100 &end
+!&optimization_term term = "MM1#1.etay 0.00 - abs", weight=3.0 &end
+!&optimization_term term = "MM1#1.etayp 0.00 - abs", weight=10 &end
 !&optimization_term term = "MM1#1.Y 0.00 - abs", weight=1000 &end
-&optimization_term term = "max.betax 400 .1 segt", weight=1.0 &end        
-&optimization_term term = "max.betay 400 .1 segt", weight=1.0 &end
+&optimization_term term = "max.betax 170 .1 segt", weight=1.0 &end        
+&optimization_term term = "max.betay 150 .1 segt", weight=1.0 &end
+!&optimization_term term = "MM1#1.alphax abs 15.0 .1 segt", weight=1.0 &end
+!&optimization_term term = "MM1#1.alphay abs 15.0 .1 segt", weight=1.0 &end
 
 
 !&optimization_term term = "MB0#1.betax 5.00 .1 segt", weight=1.0 &end
 !&optimization_term term = "MB0#1.alphax abs 0.10 .1 segt", weight=1.0 &end
 !&optimization_term term = "M00#1.alphay abs 0.10 .1 segt", weight=1 &end
 
+!&optimization_term term = "MM2#1.alphax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MM2#1.alphay 0.00 - abs", weight=1.0 &end
+
+
 !&optimization_term term = "MM2#1.betax 3.108647e+01 - abs", weight=1.0 &end
 !&optimization_term term = "MM2#1.betay 1.405883e+01 - abs", weight=1.0 &end
-!&optimization_term term = "MM2#1.alphax -1.498796e+00 - abs", weight=10 &end
-!&optimization_term term = "MM2#1.alphay  6.842346e-01 - abs", weight=10 &end
-!&optimization_term term = "MM1#1.nux MB2#1.nux - abs 0.25 - abs", weight=1.0 &end
-!&optimization_term term = "MM1#1.nuy MB2#1.nuy - abs 0.25 - abs", weight=1.0 &end
+!&optimization_term term = "MM2#1.alphax -1.498796e+00 - abs", weight=5 &end
+!&optimization_term term = "MM2#1.alphay  6.842346e-01 - abs", weight=5 &end
+!&optimization_term term = "MM2#1.nux MB2#1.nux - abs 0.5 - abs", weight=1.0 &end
+!&optimization_term term = "MM2#1.nuy MB2#1.nuy - abs 0.5 - abs", weight=1.0 &end
 
-!&optimization_term term = "MM2#1.betax MM2#1.betay - abs", weight=1.0 &end
-!&optimization_term term = "MM2#1.alphax abs", weight=1.0 &end
-!&optimization_term term = "MM2#1.alphay abs", weight=1.0 &end
-!&optimization_term term = "MM2#1.betax 10 .1 segt", weight=1.0 &end
+!&optimization_term term = "MB3#1.betax 10.00 .1 segt", weight=1.0 &end
+!&optimization_term term = "MB3#1.betay 20.00 .1 segt", weight=1.0 &end
+!&optimization_term term = "MB3#1.alphax abs", weight=10 &end
+!&optimization_term term = "MB3#1.alphay abs", weight=1.0 &end
+
+&optimization_term term = "MM3#1.betax 2.961270e+00 - abs", weight=1.0 &end
+&optimization_term term = "MM3#1.betay 1.464347e+01 - abs", weight=1.0 &end
+&optimization_term term = "MM3#1.alphax 3.099540e-01 - abs", weight=1.0 &end
+&optimization_term term = "MM3#1.alphay 1.714211e+00 - abs", weight=10 &end
+
+!&optimization_term term = "MB4#1.etaxp 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB4#1.etax 0.30 .1 segt", weight=1.0 &end
+!&optimization_term term = "MM4#1.etaxp 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MM4#1.etax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB3#1.betax 10.0 .1 segt", weight=1.0 &end
+!&optimization_term term = "MB4#1.alphax 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB4#1.alphay 0.00 - abs", weight=1.0 &end
+!&optimization_term term = "MB5#1.nux MB3#1.nux - abs 0.5 - abs", weight=1.0 &end
+!&optimization_term term = "MB5#1.nuy MB3#1.nuy - abs 0.5 - abs", weight=1.0 &end
+
+
+!&optimization_variable name = QM31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 
 !&optimization_variable name = QB31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QB32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QB33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QY31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QY32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QY30, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QY31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QY32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QY33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = LY1, item=L, lower_limit=0, upper_limit= 4, step_size = 0.1 &end
+!&optimization_variable name = LY2, item=L, lower_limit=0, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QB36, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 
-&optimization_variable name = QM31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QM34, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+!&optimization_variable name = QM300, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QM301, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QM302, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QM303, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QM304, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
 
-&optimization_variable name = QM35, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM36, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM37, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM38, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-&optimization_variable name = QM39, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+&optimization_variable name = QM305, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+&optimization_variable name = QM306, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+&optimization_variable name = QM307, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+&optimization_variable name = QM308, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+&optimization_variable name = QM309, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QM310, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 
-!&optimization_variable name = TWISS0, item=BETAX, lower_limit=0.1, upper_limit=200, step_size = 1 &end
-!&optimization_variable name = TWISS0, item=ALPHAX, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
-!&optimization_variable name = TWISS0, item=BETAY, lower_limit=0.1, upper_limit=200, step_size = 1 &end
-!&optimization_variable name = TWISS0, item=ALPHAY, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
+!&optimization_variable name = QB34, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QB35, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
 
+!&optimization_variable name = TWISS4, item=BETAX, lower_limit=0.1, upper_limit=200, step_size = 1 &end
+!&optimization_variable name = TWISS4, item=ALPHAX, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
+!&optimization_variable name = TWISS4, item=BETAY, lower_limit=0.1, upper_limit=200, step_size = 1 &end
+!&optimization_variable name = TWISS4, item=ALPHAY, lower_limit=-10, upper_limit=10, step_size = 0.1 &end
+	
+		
 &bunched_beam
 	n_particles_per_bunch	= 1,
 	emit_nx			= 4.500000e-07,

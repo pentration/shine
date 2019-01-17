@@ -1,57 +1,6 @@
 q		: charge, total=0.1e-9
 
-BK		: CSRCSBEN,															&
-    	     L = 4.000000e-01,												&
-			 ANGLE =  5.000000e-05,											&
-    	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
-    	     HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-			 TILT = " 90.0 180.0 / -1 acos * ",							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-
-%  1.80 180.0 / -1 acos * sto bendingAngle
-%  "bendingAngle" sin sto bendingSin
-%  1.00 "bendingAngle" * bendingSin / sto bendingPath
-
-B3S		: CSRCSBEN,                                                     	&
-    	     L = " bendingPath 2.0 / ", 							  					&
-			 ANGLE = " bendingAngle 2.0 /",                          	&
-    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-			 E2 = " 1.80 180.0 / -1 acos * ",								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-			 
-B31		: CSRCSBEN,                                                     	&
-    	     L = " bendingPath 2.0 / ", 							  					&
-			 ANGLE = " bendingAngle 2.0 / ",							&
-    	     E1 = " 1.80 180.0 / -1 acos * ",								&
-			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1, 			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-B32		: CSRCSBEN,															&
-    	     L = " bendingPath 2.0 / ", 							  					&
-			 ANGLE = " bendingAngle -1 * 2.0 / ",                            &
-    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-			 E2 = "-1.80 180.0 / -1 acos * ",								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-B33		: CSRCSBEN,															&
-    	     L = " bendingPath 2.0 / ", 							  					&
-			 ANGLE = " bendingAngle -1 * 2.0 / ",							&
-    	     E1 = "-1.80 180.0 / -1 acos * ",								&
-			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-
+!!!~~~ watch elements ~~~!!!
 w00		: watch, filename = "%s.w00", mode = centroid
 w01		: watch, filename = "%s.w01", mode = coord
 w02		: watch, filename = "%s.w02", mode = coord
@@ -59,12 +8,15 @@ w03		: watch, filename = "%s.w03", mode = coord
 w04		: watch, filename = "%s.w04", mode = coord
 w05		: watch, filename = "%s.w05", mode = coord
 
+!!!~~~ markers ~~~!!!
 MB0		: MARK, fitpoint = 1
 MB1		: MARK, fitpoint = 1
 MB2		: MARK, fitpoint = 1
+
 MB3		: MARK, fitpoint = 1
 MB4		: MARK, fitpoint = 1
 MB5		: MARK, fitpoint = 1
+
 MM0		: MARK, fitpoint = 1
 MM1		: MARK, fitpoint = 1
 MM2		: MARK, fitpoint = 1
@@ -82,28 +34,50 @@ MU4		: MARK, fitpoint = 1
 
 M00		: MARK, fitpoint = 1
 
+!!!~~~ Drifts ~~~!!!
+LM0		: CSRDRIFT, L = 5.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LM1		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+
+L01		: LINE = (3*LM0, 3*LM1)			! 1.8M drift
+L02		: LINE = (5*LM0, 3*LM1)			! 2.8M drift
+L03		: LINE = (7*LM0, 3*LM1)			! 3.8M drift
+L04		: LINE = (9*LM0, 3*LM1)			! 4.8M drift
+L05		: LINE = (11*LM0, 3*LM1)		! 5.8M drift
+L06		: LINE = (13*LM0, 3*LM1)		! 6.8M drift
+L07		: LINE = (15*LM0, 3*LM1)		! 7.8M drift
+
+!!!~~~ FODO Quadrupoles ~~~!!!
+QLF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01
+QLD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01
+
+FODO0	: LINE = (2*QLF, L07, 2*QLD, L07)
+DOFO0	: LINE = (2*QLD, L07, 2*QLF, L07)
+
+LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LL0		: CSRDRIFT, L = 2.500000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+
+
+!!!!!!~~~ kicker-septum section ~~~!!!!!!
+
+!!!~~~ input twiss parameters of the fodo cell ~~~!!!
+
 TWISS0	: TWISS, 	BETAX = 3.108647e+01, ALPHAX =-1.498796e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
 				 	BETAY = 1.405883e+01, ALPHAY = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								
 TWISS1	: TWISS, 	BETAX = 2.784180e+01, ALPHAX =-3.028083e+00, ETAX = 4.824084e-08, ETAXP = 1.085748e-08, 							&
 					BETAY = 7.794659e+01, ALPHAY = 5.688313e+00, ETAY =-2.638581e-11, ETAYP =-4.813529e-11,
-!TWISS0	: TWISS,	BETAX = 7.230368e+01, ALPHAX = 2.495925e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
-!                    BETAY = 1.553250e+01, ALPHAY = 6.289309e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								
 
-!!!~~~ Drifts ~~~!!
-LB10	: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LL0		: CSRDRIFT, L = 2.500000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LM0		: CSRDRIFT, L = 5.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LM1		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LM2		: CSRDRIFT, L = 5.000000e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LMQ		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+!!!~~~ kicker magnets ~~~!!!
+BK		: CSRCSBEN,															&
+    	     L = 4.000000e-01,												&
+			 ANGLE =  5.000000e-05,											&
+    	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
+    	     HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+			 TILT = " 90.0 180.0 / -1 acos * ",								&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
 
-!!!~~~ KICK Quadrupoles ~~~!!
-QLF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01
-QLD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01
-QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.970249628480021e-03
-QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY = 6.446088864302186e-03
-QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.669381739946152e-02
-
+!!!~~~ DC septum for correcting the y-angle ~~~!!!
 BYS		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
 			 ANGLE = 3.932825e-04,        				                  	&
@@ -113,24 +87,107 @@ BYS		: CSRCSBEN,                                                     	&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
 			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+    	     OUTPUT_INTERVAL = 10, CSR = 1
 
-!BYS		: CSRCSBEN,                                                     	&
-!    	     L = 1.000000e-01, 							  					&
-!			 ANGLE = 1.000000E-03,        				                  	&
-!    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-!			 E2 = " 0.00 180.0 / -1 acos * ",								&
-!			 TILT = " 90.0 180.0 / -1 acos * "								&
-!			 HGAP = 0.0135, NONLINEAR = 1,									&
-!			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-!    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-!    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+!!!~~~ lattice of the kicker-septum section ~~~!!!
 
-%  3e-3 * sto yangle
+KICKER	: LINE = (LL0, 2*BK, LL0)
+KICKER1	: LINE = (7*LM1, 5*KICKER, 6*LM1)
+KICKER2	: LINE = (7*LM1, 5*KICKER, 6*LM1)
+
+C0		: CENTER,	X = 1, XP = 1, Y = 1, YP = 1
+F0		: FLOOR, X=0,Y=-1.651943126437229e-02,PHI=0
+
+!C1		: CENTER,	X = 1, XP = 1, Y = 1, YP = 1
+!F1		: FLOOR,	X =-1.017506e+00,Y = 0, THETA=-6.283185e-02, PHI=0, PSI=0
+
+!!!~~~ Kicker Quadrupoles ~~~!!
+QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.970249628480021e-03
+QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY = 6.446088864302186e-03
+QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.669381739946152e-02
+
+MAT03	: LINE = (TWISS0,2*QLF,KICKER1,2*QLD0,KICKER2,2*QLF0,L07,2*QLD1,4*LM1,BYS,C0,F0,LM0)
+
+
+%  1.80 180.0 / -1 acos * sto bendingAngle
+%  "bendingAngle" sin sto bendingSin
+%  1.00 "bendingAngle" * bendingSin / sto bendingPath
+
+!!!!!!~~~ 1st DBA of LTU-3 dog-leg ~~~!!!!!!
+
+!!!~~~ twiss parameter at the end of the kicker-septum section ~~~!!!
+!!!~~~ i.e. at the entrance of the DC Lamberson septum magnets ~~~!!!
+
+TWISS2	: TWISS, 	BETAX = 1.553173e+01, ALPHAX =-7.886656e-01, ETAX = 2.010599e-15, ETAXP = 1.394365e-16,&
+					BETAY = 2.819323e+01, ALPHAY = 1.394406e+00, ETAY = 1.578031e-02, ETAYP =-1.391911e-03,
+
+!!!~~~ DC Lamberson septum magnets at the entrance of the 1st DBA ~~~!!!
+!!!~~~ bending angle - 1.8 deg. ||| pole length - 1.0m ~~~!!!
+
+B3Sa	: CSRCSBEN,                                                     	&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle 2.0 /",                          		&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+
+B3Sb	: CSRCSBEN,                                                     	&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle 2.0 /",                          		&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+
+!!!~~~ DC dipole magnet at the exit of the 1st DBA ~~~!!!
+!!!~~~ bending angle - 1.8 deg. ||| pole length - 1.0m ~~~!!!
+
+B31a	: CSRCSBEN,                                                     	&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle 2.0 / ",								&
+    	     E1 = " 1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1, 			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B31b	: CSRCSBEN,                                                     	&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle 2.0 / ",								&
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1, 			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+
+!!!~~~ quadrupoles in the 1st DBA for achromat ~~~!!!
+
+QB31	: QUAD, 	L = 2.000000e-01, K1 = 7.087945605333774e-01
+QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.759096630769075e-01
+QB33	: QUAD, 	L = 2.000000e-01, K1 = 7.087945604223728e-01
+
+
+!!!~~~ lattice of the 1st DBA ~~~!!!
+!!!~~~ total length - 20m ~~~!!!
+
+LD01	: LINE = (11*LM0,4*LM1)		! 5.9M drift
+LD02	: LINE = (5*LM0,0*LM1)		! 2.5M drift
+DBA31	: LINE = (TWISS2,B3Sa,MB0,B3Sb,LD01,2*QB31,LD02,QB32,MB1,QB32,0*LM1,5*LM0,2*QB33,LD01,B31a,MB2,B31b,MM0)
+
+
+!!!!!!~~~ vertical dog-leg for y dispersion free ~~~!!!!!!
+
+!%  3e-3 * sto yangle
 
 BY1		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
-			 ANGLE = "yangle",        				                  	&
+			 ANGLE = 4.712389e-03,        				                  	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
 			 TILT = " -90.0 180.0 / -1 acos * "								&
@@ -141,7 +198,7 @@ BY1		: CSRCSBEN,                                                     	&
 
 BY2		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
-			 ANGLE = "yangle",        				                  	&
+			 ANGLE = 4.712389e-03,        				                  	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
 			 TILT = " 90.0 180.0 / -1 acos * "								&
@@ -150,89 +207,148 @@ BY2		: CSRCSBEN,                                                     	&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
     	     OUTPUT_INTERVAL = 10, CSR = 1        								
 
-LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-KICKER	: LINE = (LL0, 2*BK, LL0)
-KICKER1	: LINE = (7*LM1, 5*KICKER, 6*LM1)
-L01		: LINE = (15*LM0, 3*LM1)
-L02		: LINE = (5*LM0, 3*LM1)
-L03		: LINE = (7*LM0, 3*LM1)
-FODO0	: LINE = (2*QLF, L01, 2*QLD, L01)
-DOFO0	: LINE = (2*QLD, L01, 2*QLF, L01)
+!!!~~~ ~~~!!!
+LDY		: DRIF,		L = 2.055450e-01
 
-C0		: CENTER, X=1,XP=1,Y=1,YP=1
-F0		: FLOOR, X=0,Y=-1.651943126437229e-02,PHI=0
+!!!~~~ ~~~!!!
+QY31	: QUAD, 	L = 2.000000e-01, K1 =-1.762333726795404e+00
+QY32	: QUAD, 	L = 2.000000e-01, K1 =-1.161650221626455e+00
 
-C1		: CENTER, X=1,XP=1,Y=1,YP=1
-F1		: FLOOR, X=-1.017506e+00,Y = 0, THETA=-6.283185e-02, PHI=0, PSI=0
+QM31	: QUAD, 	L = 2.000000e-01, K1 = 4.371152621148211e-01
+QM32	: QUAD, 	L = 2.000000e-01, K1 =-1.364253942618113e+00
+QM33	: QUAD, 	L = 2.000000e-01, K1 = 1.529355213042506e+00
 
-MAT03	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, &
-				15*LM0, 3*LM1, 2*QLD1, 4*LM1, BYS, C0, F0, 5*LM1, B3S, MB0)
+MAT30	: LINE = (2*LM0,2*QM31,4*LM0,2*QM32,4*LM0,2*QM33,2*LM0,BY1,8*LM1,0*LM1,2*QY31,0*LM0,8*LM1,LDY,2*QY32,8*LM1,0*LM1,BY2,MM1)
 
-!MAT03	: LINE = (TWISS0, 5*KICKER, 1*LM0, M00, 1*LM0, 5*KICKER, 19*LM0, 4*LM1, LM2, BYS, 4*LM1, 1*LM2, 0*LM0, B3S, MB0)
+!!!!!!~~~ 1st matching section in the long straight section without dispersions ~~~!!!!!
 
-!!!~~~ LTU3 ~~~!!
-LMM3	: CSRDRIFT, L = 6.571852e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-!QB31	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
-!QB32	: QUAD, 	L = 2.000000e-01, K1 =-1.670812e+00, DX=0, DY=0
-!QB33	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
-!QB34	: QUAD, 	L = 2.000000e-01, K1 = 1.367176e+00, DX=0, DY=0
+QM300	: QUAD, 	L = 2.000000e-01, K1 = 1.450001507883809e+00
+QM301	: QUAD, 	L = 2.000000e-01, K1 =-1.326932249826268e+00
+QM302	: QUAD, 	L = 2.000000e-01, K1 = 7.703605445403632e-01
+QM303	: QUAD, 	L = 2.000000e-01, K1 =-8.092571610557675e-01
+QM304	: QUAD, 	L = 2.000000e-01, K1 = 9.076627427351502e-01
 
-QB31	: QUAD, 	L = 2.000000e-01, K1 = 6.928102077810062e-01
-QB32	: QUAD, 	L = 2.000000e-01, K1 =-9.304375780945453e-01
-QB33	: QUAD, 	L = 2.000000e-01, K1 = 6.928122756357391e-01
+LMD1	: LINE = (4*LM0, 1*LM1)			! 2.1m drift
+LMD2	: LINE = (3*LM0, 1*LM1)			! 1.6m drift
 
-QY30	: QUAD, 	L = 2.000000e-01, K1 =-8.153309810291871e-01
-QY31	: QUAD, 	L = 2.000000e-01, K1 = 1.821375341911873e+00
-QY32	: QUAD, 	L = 2.000000e-01, K1 = 1.117276261889562e+00
+MAT31	: LINE = (LMD1,2*QM300,LMD2,2*QM301,LMD2,2*QM302,LMD2,2*QM303,LMD2,2*QM304,4*LM0,MM2,4*FODO0,2*QLF,L07)
 
-QO31	: QUAD, 	L = 2.000000e-01, K1 = 9.507338e-01
-QO32	: QUAD, 	L = 2.000000e-01, K1 =-1.379877e+00
-QO33	: QUAD, 	L = 2.000000e-01, K1 = 1.129089e+00
-QO34	: QUAD, 	L = 2.000000e-01, K1 =-1.557183e+00
 
-QM31	: QUAD, 	L = 2.000000e-01, K1 = 1.329977920671936e+00
-QM32	: QUAD, 	L = 2.000000e-01, K1 =-1.788012701513990e+00
-QM33	: QUAD, 	L = 2.000000e-01, K1 = 7.293753491538228e-01
-QM34	: QUAD, 	L = 2.000000e-01, K1 = 2.842630703077993e-01
-QM35	: QUAD, 	L = 2.000000e-01, K1 =-1.597510628015667e+00
-QM36	: QUAD, 	L = 2.000000e-01, K1 =-8.561455277586817e-01
-QM37	: QUAD, 	L = 2.000000e-01, K1 =-8.240938845723252e-01
-QM38	: QUAD, 	L = 2.000000e-01, K1 = 5.943142042755148e-01
-QM39	: QUAD, 	L = 2.000000e-01, K1 =-1.3325844e+00
+!!!!!!~~~ ~~~!!!!!!
+!!!~~~ ~~~!!!
 
-QMF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY=0
-QMD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY=0
-!QMD		: QUAD,		L = 1.000000e-01, K1 =-3.520221e-01
+QM305	: QUAD, 	L = 2.000000e-01, K1 =-9.076267009958754e-01
+QM306	: QUAD, 	L = 2.000000e-01, K1 =-7.168213913703446e-01
+QM307	: QUAD, 	L = 2.000000e-01, K1 = 1.126268339343579e+00
+QM308	: QUAD, 	L = 2.000000e-01, K1 =-1.168217842944241e+00
+QM309	: QUAD, 	L = 2.000000e-01, K1 = 3.991564680761123e-01
 
-QU31	: QUAD, 	L = 2.000000e-01, K1 =-2.517259e-01
-QU32	: QUAD, 	L = 2.000000e-01, K1 =-1.120314e-00
-QU33	: QUAD, 	L = 2.000000e-01, K1 = 1.315028e-00
-QU34	: QUAD, 	L = 2.000000e-01, K1 =-1.648087e-00
+LMM3	: CSRDRIFT, L = 2.609000e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 
-LY1		: DRIF,		L = 1.000000e-01
-LY2		: DRIF,		L = 2.055450e-01
-LD3		: DRIF,		L = 2.120000e-03
-LD4		: DRIF,		L = 2.120000e-03
+LMD3	: LINE = (2*LM0, 4*LM1, LMM3)		! 1.4261m drift for 8.9m horizontal shift
 
-TWISS2	: TWISS, 	BETAX = 1.817740e+01, ALPHAX =-2.581761e+00, ETAX = 6.828132e-07, ETAXP = 1.677803e-07, 							&
-					BETAY = 1.553761e+01, ALPHAY =-2.946416e+00, ETAY = 6.908650e-02, ETAYP = 7.430032e-03,
+MAT32	: LINE = (QM305, L04, QM306, L04, QM307, L04, QM308, 1*L04, 1*QM309, L04, LMD3, MM3)
 
-TWISS3	: TWISS, 	BETAX = 2.757874e+00, ALPHAX =-1.079145e+00, ETAX =-3.512716e-07, ETAXP =-3.112544e-07, 							&
-					BETAY = 7.199201e+00, ALPHAY =-2.710702e+00, ETAY =-1.449055e-06, ETAYP =-6.478306e-07,
 
-DBA31	: LINE = (MAT03, B3S, 11*LM0, 4*LM1, 2*QB31, 4*LM0, 0*LM1, QB32, MB1, w00, QB32, 0*LM1, 4*LM0, 2*QB33, &
-				  11*LM0, 4*LM1, B31, MB2, B31, MM0)
-!DBA31	: LINE = (MAT03, B3S, 10*LM0, 0*LM1, 0*LM1, QB32, MB1, QB32, 0*QB31, &
-!				  10*LM0, 0*LM1, B31, MB2, B31, MM0)
-MAT30	: LINE = (2*LM0, 2*QM31, 2*LM0, 2*QM32, 2*LM0, 2*QM33, 2*LM0, BY1, 8*LM1, 0*LM1, 2*QY31, 0*LM0, 8*LM1, LY2, 2*QY32, 8*LM1, 0*LM1, BY2, MM1)
-MAT31	: LINE = (7*LM0, 3*LM1, QM35, 7*LM0, 3*LM1, QM36, 7*LM0, 3*LM1, QM37, 7*LM0, 3*LM1, QM38, 7*LM0, 3*LM1, QM39, 3*LM0, 3*LM1, MM2)
-FODO3	: LINE = (QMF, 15*LM0, 3*LM1, QMD, QMD, 15*LM0, 3*LM1, QMF)
-DBA32	: LINE = (B32, MB3, B32, 11*LM0, 1*LM1, QB31, QB31, 7*LM0, 1*LM1, QB32, MB4, QB32, 7*LM0, 1*LM1, QB31, QB31, &
-				  11*LM0, 1*LM1, B33, MB5, B33)
-LTU3	: LINE = (q, DBA31, MAT30)!, MAT31)
+!!!!!!~~~ ~~~!!!!!!
+!!!~~~ ~~~!!!
 
-MATCH	: LINE = (q, TWISS2, MAT30, MAT31)
-!, 186*LM0, 1*LD3, DBA32, 20*LM0)!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
+B32a	: CSRCSBEN,															&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",                           &
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = "-0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B32b	: CSRCSBEN,															&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",                           &
+    	     E1 = " 0.00 180.0 / -1 acos * ",								&
+			 E2 = "-1.80 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B33a	: CSRCSBEN,															&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",							&
+    	     E1 = "-1.80 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+B33b	: CSRCSBEN,															&
+    	     L = " bendingPath 2.0 / ", 							  		&
+			 ANGLE = " bendingAngle -1 * 2.0 / ",							&
+    	     E1 = "-0.00 180.0 / -1 acos * ",								&
+			 E2 = " 0.00 180.0 / -1 acos * ",								&
+			 HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
 
+QB34	: QUAD, 	L = 2.000000e-01, K1 = 7.128820174313268e-01
+QB35	: QUAD, 	L = 2.000000e-01, K1 =-9.947075609001710e-01
+
+
+DBA32: LINE=(B32a,MB3,B32b,11*LM0,4*LM1,2*QB34,5*LM0,0*LM1,QB35,MB4,QB35,0*LM1,5*LM0,2*QB34,11*LM0,4*LM1,B33a,MB5,B33b,MM4)
+
+LTU3	: LINE = (q, DBA31, MAT30, MAT31, MAT32, DBA32, -MAT32, L07, 2*QLF, L07, 3*DOFO0)!, MAT32)!
+
+!USE, MAT32
 USE, LTU3
 RETURN
+
+
+
+!!!!!!~~~ Elements not in use ~~~!!!!!!
+
+
+!QO31	: QUAD, 	L = 2.000000e-01, K1 = 9.507338e-01
+!QO32	: QUAD, 	L = 2.000000e-01, K1 =-1.379877e+00
+!QO33	: QUAD, 	L = 2.000000e-01, K1 = 1.129089e+00
+!QO34	: QUAD, 	L = 2.000000e-01, K1 =-1.557183e+00
+
+!QM315	: QUAD, 	L = 2.000000e-01, K1 = 9.076267009958754e-01
+!QM316	: QUAD, 	L = 2.000000e-01, K1 = 7.168213913703446e-01
+!QM317	: QUAD, 	L = 2.000000e-01, K1 =-1.126268339343579e+00
+!QM318	: QUAD, 	L = 2.000000e-01, K1 = 1.168217842944241e+00
+!QM319	: QUAD, 	L = 2.000000e-01, K1 =-3.991564680761123e-01
+
+
+!QU31	: QUAD, 	L = 2.000000e-01, K1 =-2.517259e-01
+!QU32	: QUAD, 	L = 2.000000e-01, K1 =-1.120314e-00
+!QU33	: QUAD, 	L = 2.000000e-01, K1 = 1.315028e-00
+!QU34	: QUAD, 	L = 2.000000e-01, K1 =-1.648087e-00
+
+!QY30	: QUAD, 	L = 2.000000e-01, K1 =-0.8153309810291871
+!QY33	: QUAD, 	L = 2.000000e-01, K1 =-0.46628812339135
+!LMM3	: DRIF,		L = 2.609000e-02
+
+!TWISS3	: TWISS, 	BETAX = 1.634267e+01, ALPHAX =-3.138702e+00, ETAX = 3.926408e-03, ETAXP =-1.570730e-02, 							&
+!					BETAY = 5.482548e+00, ALPHAY =-7.973221e-01, ETAY = 4.588418e-02, ETAYP = 5.105255e-03,
+!TWISS4	: TWISS, 	BETAX = 2.768122e+01, ALPHAX = 1.250212e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+!				 	BETAY = 1.526156e+01, ALPHAY = 1.783564e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								
+!TWISS4	: TWISS, 	BETAX = 1.032869e+00, ALPHAX = 1.196137e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+!				 	BETAY = 1.498276e+01, ALPHAY = 1.752267e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								
+
+!DBA31	: LINE = (MAT03, B3Sb, 10*LM0, 0*LM1, 0*LM1, QB32, MB1, QB32, 0*QB31, &
+!				  10*LM0, 0*LM1, B31, MB2, B31, MM0)
+
+!MAT33	: LINE = (QM315, L04, QM316, L04, QM317, L04, QM318, 1*L04, 1*QM319, L04, 2*LM0, 4*LM1, LMM3, MM3)
+
+!19*LM0, 1*LM1, 2*QM305, 19*LM0, 1*LM1, &
+!19*LM0, 1*LM1, 2*QM306, 19*LM0, 1*LM1, &
+!19*LM0, 1*LM1, 2*QM307, 19*LM0, 1*LM1, &
+!19*LM0, 1*LM1, 2*QM308, 19*LM0, 1*LM1, &
+!19*LM0, 1*LM1, 2*QM309, 19*LM0, 1*LM1, &
+!19*LM0, 1*LM1, 0*QM310, 19*LM0, 1*LM1, LMM3, MM2)
+! QM306, 19*LM0, 3*LM1, QM307, 19*LM0, 3*LM1, QM308, 19*LM0, 3*LM1, QM309, 19*LM0, 3*LM1, QM310, 15*LM0, 4*LM1, MM2)!, QM35, 15*LM0, 3*LM1)
+
+!, 2*LM0, QM31, 7*LM0, 3*LM1)
+
+!, MAT30, MAT31, QMF, 4*FODO3, QMF)!, MM3, -MAT31, MM4, DBA32, 5*LM0, 3*LM1, 3*DOFO0)
+
