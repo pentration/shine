@@ -32,6 +32,10 @@
 &end
 
 !! Optimization terms for DBA1 !!
+&optimization_term term = "max.betax 200 .1 segt", weight=1.0 &end        
+&optimization_term term = "max.betay 200 .1 segt", weight=1.0 &end
+
+
 !&optimization_term term = "MB1#1.etaxp 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB1#1.etax 0.30 .1 segt", weight=1.0 &end
 !&optimization_term term = "MM0#1.etaxp 0.00 - abs", weight=5.0 &end
@@ -40,12 +44,9 @@
 !&optimization_term term = "MB1#1.alphay 0.00 - abs", weight=1.0 &end
 !&optimization_term term = "MB2#1.nux MB0#1.nux - abs 0.5 - abs", weight=5.0 &end
 !&optimization_term term = "MB2#1.nuy MB0#1.nuy - abs 0.5 - abs", weight=1.0 &end
-!
+
 !&optimization_term term = "MM1#1.etay 0.00 - abs", weight=3.0 &end
 !&optimization_term term = "MM1#1.etayp 0.00 - abs", weight=10 &end
-!&optimization_term term = "MM1#1.Y 0.00 - abs", weight=1000 &end
-&optimization_term term = "max.betax 170 .1 segt", weight=1.0 &end        
-&optimization_term term = "max.betay 150 .1 segt", weight=1.0 &end
 !&optimization_term term = "MM1#1.alphax abs 15.0 .1 segt", weight=1.0 &end
 !&optimization_term term = "MM1#1.alphay abs 15.0 .1 segt", weight=1.0 &end
 
@@ -65,11 +66,6 @@
 !&optimization_term term = "MM2#1.nux MB2#1.nux - abs 0.5 - abs", weight=1.0 &end
 !&optimization_term term = "MM2#1.nuy MB2#1.nuy - abs 0.5 - abs", weight=1.0 &end
 
-!&optimization_term term = "MB3#1.betax 10.00 .1 segt", weight=1.0 &end
-!&optimization_term term = "MB3#1.betay 20.00 .1 segt", weight=1.0 &end
-!&optimization_term term = "MB3#1.alphax abs", weight=10 &end
-!&optimization_term term = "MB3#1.alphay abs", weight=1.0 &end
-
 &optimization_term term = "MM3#1.betax 2.961270e+00 - abs", weight=1.0 &end
 &optimization_term term = "MM3#1.betay 1.464347e+01 - abs", weight=1.0 &end
 &optimization_term term = "MM3#1.alphax 3.099540e-01 - abs", weight=1.0 &end
@@ -85,21 +81,15 @@
 !&optimization_term term = "MB5#1.nux MB3#1.nux - abs 0.5 - abs", weight=1.0 &end
 !&optimization_term term = "MB5#1.nuy MB3#1.nuy - abs 0.5 - abs", weight=1.0 &end
 
-
-!&optimization_variable name = QM31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QM32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QM33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-
 !&optimization_variable name = QB31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QB32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
 !&optimization_variable name = QB33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QY30, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QY31, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QY32, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QY33, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = LY1, item=L, lower_limit=0, upper_limit= 4, step_size = 0.1 &end
-!&optimization_variable name = LY2, item=L, lower_limit=0, upper_limit= 2, step_size = 0.1 &end
-!&optimization_variable name = QB36, item=K1, lower_limit=-2, upper_limit= 2, step_size = 0.1 &end
+
+!&optimization_variable name = QO31, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QO32, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QO33, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QY31, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
+!&optimization_variable name = QY32, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
 
 !&optimization_variable name = QM300, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
 !&optimization_variable name = QM301, item=K1, lower_limit=-1.5, upper_limit= 1.5, step_size = 0.1 &end
