@@ -61,8 +61,8 @@
  
 &bunched_beam
 	n_particles_per_bunch		= 200,
-	emit_nx						= 3.086146e-07,
-	emit_ny						= 2.513495e-07,
+	emit_nx						= 2.584300e-07,
+	emit_ny						= 2.565767e-07,
 	Po							= 1.631685e+04,
 	sigma_dp					= 1.0e-4,
 	sigma_s						= 2.0e-5,
