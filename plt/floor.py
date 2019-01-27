@@ -6,7 +6,6 @@ import scipy.constants as spc
 # import scipy.special as sps
 import string
 import matplotlib.pyplot as plt
-import matplotlib.pylab as pl
 import enhancePlot as ep
 # import os
 # import re
@@ -14,116 +13,84 @@ plt.style.use('messiah')
 # plt.style.use('classic')
 
 # os.system('./run/runScript')
+X1,Z1 = np.loadtxt('../dat/flr/ltu1-flr.dat',usecols=(2,4),skiprows=1,unpack=True)
+X2,Z2 = np.loadtxt('../dat/flr/ltu2-flr.dat',usecols=(2,4),skiprows=1,unpack=True)
+X3,Z3 = np.loadtxt('../dat/flr/ltu3-flr.dat',usecols=(2,4),skiprows=1,unpack=True)
+X4,Z4 = np.loadtxt('../dat/flr/ltu4-flr.dat',usecols=(2,4),skiprows=1,unpack=True)
 
-file1 = open("../dat/flr/ltu1-flr.dat")
-file2 = open("../dat/flr/ltu2-flr.dat")
-file3 = open("../dat/flr/ltu3-flr.dat")
-file4 = open("../dat/flr/ltu4-flr.dat")
-file5 = open("../dat/flr/ltu5-flr.dat")
+Z1 = Z1-69
+Z2 = Z2-183
+Z3 = Z3-133
+Z4 = Z4-183
+# ZD = ZD-43
+X1 = X1-0.2
+X2 = X2-0.2
+X3 = X3-0.2
+X4 = X4-0.2
+# YD = YD-0.0
 
-data1 = [line.rstrip("\n") for line in file1]
-data2 = [line.rstrip("\n") for line in file2]
-data3 = [line.rstrip("\n") for line in file3]
-data4 = [line.rstrip("\n") for line in file4]
-data5 = [line.rstrip("\n") for line in file5]
-
-
-ltu1 = np.transpose(([x.split()[1:] for x in data1[1:]]))
-ltu2 = np.transpose(([x.split()[1:] for x in data2[1:]]))
-ltu3 = np.transpose(([x.split()[1:] for x in data3[1:]]))
-ltu4 = np.transpose(([x.split()[1:] for x in data4[1:]]))
-ltu5 = np.transpose(([x.split()[1:] for x in data5[1:]]))
-
-Z1 = [float(s)-63 for s in ltu1[3]]
-Z2 = [float(s)-183 for s in ltu2[3]]
-Z3 = [float(s)-133 for s in ltu3[3]]
-Z4 = [float(s)-183 for s in ltu4[3]]
-Z5 = [float(s)-183 for s in ltu5[3]]
-X1 = [float(x)-0.2 for x in ltu1[1]]
-X2 = [float(x)-0.2 for x in ltu2[1]]
-X3 = [float(x)-0.2 for x in ltu3[1]]
-X4 = [float(x)-0.2 for x in ltu4[1]]
-X5 = [float(x)-0.2 for x in ltu5[1]]
-
-R=1500
-theta=np.linspace(-2,0)*np.pi/180
-rho=2*R*np.sin(theta)
-z=R*np.sin(theta)-208
-xt1=R*(1-np.cos(theta))+2.67
-xt2=R*(1-np.cos(theta))-2.67
-
-
-fig1   = plt.figure()
-ax1 = fig1.add_axes([0.10, 0.15, 0.80, 0.80])
-plt1 = ep.enhancePlot()
-ltu1 = plt1.ePlot(ax1, Z1, X1)
-ltu2 = plt1.ePlot(ax1, Z2, X2)
-ltu3 = plt1.ePlot(ax1, Z3, X3)
-# l5 = plt1.ePlot(ax1, Z5, X5)
-ltu4 = plt1.ePlot(ax1, Z4, X4, mt=(':'),lw=0.5)
-ltu5 = plt1.ePlot(ax1, Z5, X5, mt=(':'),lw=0.5)
-ax1.plot(z,xt1,lw=2,c='k')
-ax1.plot(z,xt2,lw=2,c='k')
-plt1.eSetPlot(ax1)
-ax1.ticklabel_format(style='plain',axis='y')
-ax1.set_xlim([-208,200])
-ax1.set_ylim([-20,20])
-ax1.set_xlabel(r'$s\ (m)$',fontsize='xx-large')
-ax1.set_ylabel(r'$X\ ({m})$',fontsize='xx-large')
-line00=[(-208,-0.0),(0,-0.0)]
-line01=[(-208,-0.2),(-20,-0.2)]
+fig1   = plt.figure(figsize=[8,4])
+ax1 = fig1.add_axes([0.100, 0.15, 0.875, 0.825])
+l1 = ax1.plot(Z1, X1,label=r'LTU-1')
+l2 = ax1.plot(Z2, X2,label=r'LTU-2')
+l3 = ax1.plot(Z3, X3,label=r'LTU-3')
+l4 = ax1.plot(Z4, X4,':')
+ax1.ticklabel_format(style='plain',axis='both')
+ax1.set_xlim([-210,80])
+ax1.set_ylim([-16.2,16.2])
+ax1.set_xlabel(r'$s\ (m)$')
+ax1.set_ylabel(r'$X\ ({m})$')
+line00=[(-210,-0.0),(0,-0.0)]
+line01=[(-210,-0.2),(-20,-0.2)]
 line02=[(00,-16),(00,16)]
-line03=[(00,-2.95),(200,-2.95)]
-line04=[(00, 2.95),(200, 2.95)]
-line05=[(00,-2.95-4.7),(200,-2.95-4.7)]
-line06=[(00, 2.95+4.7),(200, 2.95+4.7)]
-line07=[(00,-2.95-4.7-5.9),(200,-2.95-4.7-5.9)]
-line08=[(00, 2.95+4.7+5.9),(200, 2.95+4.7+5.9)]
-line09=[(-208,-2.67),(-88,-2.67)]
-line10=[(-208, 2.67),(-88, 2.67)]
+line03=[(00,-2.95),(150,-2.95)]
+line04=[(00, 2.95),(150, 2.95)]
+line05=[(00,-2.95-4.7),(150,-2.95-4.7)]
+line06=[(00, 2.95+4.7),(150, 2.95+4.7)]
+line07=[(00,-2.95-4.7-5.9),(150,-2.95-4.7-5.9)]
+line08=[(00, 2.95+4.7+5.9),(150, 2.95+4.7+5.9)]
+line09=[(-210,-2.67),(-88,-2.67)]
+line10=[(-210, 2.67),(-88, 2.67)]
 line11=[( -88,-2.67),(-88,-16)]
 line12=[( -88, 2.67),(-88, 16)]
 line13=[( -88,-16),(00,-16)]
 line14=[( -88, 16),(00, 16)]
 line15=[( 00,-16+2.45),(00,-16)]
 line16=[( 00, 16-2.45),(00, 16)]
-
-# line1=[(-21.487,-20),(-21.487,1.65)]
 line17=[(-208,-5.5),(-208,-0.2)]
 line18=[(-183,-5.5),(-183,-0.2)]
 line19=[(-208,6.5),(-208,-0.2)]
-line20=[(146,12.25),(146,4.5)]
-line21=[(-158,-5.5),(-158,-0.2)]
+line20=[(-132,6.5),(-132,1.65)]
+line21=[(-158,-10.5),(-158,-0.2)]
 line22=[(28.7314,-10.5),(28.7314,-9.1)]
-line23=[(-63,-4.5),(-63,-0.2)]
-line24=[(9.345-10,-4.5),(9.345-10,-1.65)]
+line23=[(-69,-4.5),(-69,-0.2)]
+line24=[(9.345-16,-4.5),(9.345-16,-1.65)]
 line25=[(-133,-5.5),(-133,-0.2)]
 line26=[(-20,3.5),(-20,-0.2)]
-line27=[( 00,10.6),(200,10.6)]
-line28=[( 00,-10.6),(200,-10.6)]
-line29=[( 00,0.0),(200,0.0)]
-ax1.text(-208,-6.0,'Kicker',fontsize=8,ha='center',va='center')
-ax1.text(-183,-6.0,'Septum',fontsize=8,ha='center',va='center')
-ax1.text(-158,-6.0,'Kicker',fontsize=8,ha='center',va='center')
-ax1.text(-133,-6.0,'Septum',fontsize=8,ha='center',va='center')
-ax1.text(-20,4.0,'Dump',fontsize=8,ha='center',va='center')
-ax1.text(-44,13,'#2 Shaft',fontsize=10,ha='center',va='center')
-ax1.text(-160,-2.0,'Linac Tunnel',fontsize=10,ha='center',va='center')
-ax1.text(50, 00.000,'Mid Undulator Tunnel', fontsize=10,ha='center',va='center')
-ax1.text(50, 12.075,'East Undulator Tunnel',fontsize=10,ha='center',va='center')
-ax1.text(50,-12.075,'West Undulator Tunnel',fontsize=10,ha='center',va='center')
-# ax1.annotate('',xy=(-208,6),xytext=(121+25,6),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
-# ax1.text(-20,6.5,'LTU2',fontsize=8,ha='center',va='center')
-# ax1.annotate('',xy=(-158,-10),xytext=(28.7314,-10),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
-# ax1.text(-44,-10.7,'LTU3',fontsize=8,ha='center',va='center')
-# ax1.annotate('',xy=(-63,-4),xytext=(9.345-10,-4),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
-# ax1.text(-40,-4.7,'LTU1',fontsize=8,ha='center',va='center')
-# ax1.text(-44, 5.00,'LTU4',fontsize=8,ha='center',va='center')
-# ax1.text(150, 1.65,'FEL-II',fontsize=8,ha='center',va='center')
-ax1.text(175,-1.65,'FEL-I',fontsize=8,ha='center',va='center')
-ax1.text(175,-9.10,'FEL-III',fontsize=8,ha='center',va='center')
-# ax1.text(175, 8.90,'FEL-IV',fontsize=8,ha='center',va='center')
-ax1.text(175, 12.25,'FEL-II',fontsize=8,ha='center',va='center')
+line27=[( 00,10.6),(80,10.6)]
+line28=[( 00,-10.6),(80,-10.6)]
+line29=[( 00,0.0),(80,0.0)]
+ax1.text(-208,-6.0,'Kicker',fontsize=6,ha='center',va='center')
+ax1.text(-183,-6.0,'Septum',fontsize=6,ha='center',va='center')
+ax1.text(-158,-6.0,'Kicker',fontsize=6,ha='center',va='center')
+ax1.text(-133,-6.0,'Septum',fontsize=6,ha='center',va='center')
+ax1.text(-20,4.0,'Dump',fontsize=6,ha='center',va='center')
+ax1.text(-44,13,'#2 Shaft',fontsize=8,ha='center',va='center')
+ax1.text(-160,-2.0,'Linac Tunnel',fontsize=8,ha='center',va='center')
+ax1.text(50, 00.000,'Mid Undulator Tunnel', fontsize=8,ha='center',va='center')
+ax1.text(50, 12.075,'East Undulator Tunnel',fontsize=8,ha='center',va='center')
+ax1.text(50,-12.075,'West Undulator Tunnel',fontsize=8,ha='center',va='center')
+ax1.annotate('',xy=(-208,6),xytext=(-132,6),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
+ax1.text(-170,6.5,'LTU2',fontsize=8,ha='center',va='center')
+ax1.annotate('',xy=(-158,-10),xytext=(28.7314,-10),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
+ax1.text(-44,-10.7,'LTU3',fontsize=8,ha='center',va='center')
+ax1.annotate('',xy=(-69,-4),xytext=(9.345-16,-4),arrowprops=dict(arrowstyle="<->",linewidth=0.5,connectionstyle="arc3"))
+ax1.text(-20,-4.7,'LTU1',fontsize=8,ha='center',va='center')
+ax1.text(-44, 5.00,'LTU4',fontsize=8,ha='center',va='center')
+ax1.text(50, 1.65,'FEL-II',fontsize=8,ha='center',va='center')
+ax1.text(50,-1.65,'FEL-I',fontsize=8,ha='center',va='center')
+ax1.text(50,-9.10,'FEL-III',fontsize=8,ha='center',va='center')
+ax1.text(50, 8.90,'FEL-IV',fontsize=8,ha='center',va='center')
 (line00_xs,line00_ys)=zip(*line00)
 (line01_xs,line01_ys)=zip(*line01)
 (line02_xs,line02_ys)=zip(*line02)
@@ -157,8 +124,8 @@ ax1.text(175, 12.25,'FEL-II',fontsize=8,ha='center',va='center')
 (line28_xs,line28_ys)=zip(*line28)
 (line29_xs,line29_ys)=zip(*line29)
 ax1.add_line(plt.Line2D(line00_xs,line00_ys,linestyle=':',linewidth=0.1,color='r'))
-ax1.add_line(plt.Line2D(line01_xs,line01_ys,linestyle='-',linewidth=1.,color='b'))
-ax1.add_line(plt.Line2D(line02_xs,line02_ys,linestyle=':',linewidth=.5,color='k'))
+ax1.add_line(plt.Line2D(line01_xs,line01_ys,linestyle='-',linewidth=0.1,color='b'))
+ax1.add_line(plt.Line2D(line02_xs,line02_ys,linestyle=':',linewidth=0.5,color='k'))
 ax1.add_line(plt.Line2D(line03_xs,line03_ys,linestyle='-',linewidth=2,color='k'))
 ax1.add_line(plt.Line2D(line04_xs,line04_ys,linestyle='-',linewidth=2,color='k'))
 ax1.add_line(plt.Line2D(line05_xs,line05_ys,linestyle='-',linewidth=2,color='k'))
@@ -175,31 +142,33 @@ ax1.add_line(plt.Line2D(line15_xs,line15_ys,linestyle='-',linewidth=2,color='k')
 ax1.add_line(plt.Line2D(line16_xs,line16_ys,linestyle='-',linewidth=2,color='k'))
 ax1.add_line(plt.Line2D(line17_xs,line17_ys,linestyle=':',linewidth=1,color='k'))
 ax1.add_line(plt.Line2D(line18_xs,line18_ys,linestyle=':',linewidth=1,color='k'))
-# ax1.add_line(plt.Line2D(line19_xs,line19_ys,linestyle=':',linewidth=1,color='k'))
-# ax1.add_line(plt.Line2D(line20_xs,line20_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line19_xs,line19_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line20_xs,line20_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line19_xs,line19_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line20_xs,line20_ys,linestyle=':',linewidth=1,color='k'))
 ax1.add_line(plt.Line2D(line21_xs,line21_ys,linestyle=':',linewidth=1,color='k'))
-# ax1.add_line(plt.Line2D(line22_xs,line22_ys,linestyle=':',linewidth=1,color='k'))
-# ax1.add_line(plt.Line2D(line23_xs,line23_ys,linestyle=':',linewidth=1,color='k'))
-# ax1.add_line(plt.Line2D(line24_xs,line24_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line22_xs,line22_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line23_xs,line23_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line24_xs,line24_ys,linestyle=':',linewidth=1,color='k'))
 ax1.add_line(plt.Line2D(line25_xs,line25_ys,linestyle=':',linewidth=1,color='k'))
 ax1.add_line(plt.Line2D(line26_xs,line26_ys,linestyle=':',linewidth=1,color='k'))
-ax1.add_line(plt.Line2D(line27_xs,line27_ys,linestyle=':',linewidth=0.25,color='k'))
-ax1.add_line(plt.Line2D(line28_xs,line28_ys,linestyle=':',linewidth=0.25,color='k'))
-ax1.add_line(plt.Line2D(line29_xs,line29_ys,linestyle=':',linewidth=0.25,color='k'))
+ax1.add_line(plt.Line2D(line27_xs,line27_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line28_xs,line28_ys,linestyle=':',linewidth=1,color='k'))
+ax1.add_line(plt.Line2D(line29_xs,line29_ys,linestyle=':',linewidth=1,color='k'))
 # ax1.add_line(plt.Line2D(line25_xs,line25_ys,linestyle=':',linewidth=1,color='k'))
 ax1.spines['right'].set_color('none')
 ax1.spines['top'].set_color('none')
 ax1.spines['bottom'].set_color('none')
 ax1.spines['left'].set_color('none')
-ax1.set_xticks([-208,-158,-120,-88,-44,0,40,80,120,160,200])
-ax1.set_yticks([])
-plt.legend(ltu1+ltu2+ltu3,[r'LTU1',r'LTU2',r'LTU3'],frameon=False,loc="upper left",bbox_to_anchor=(0.00,0.925),fontsize=12)
+ax1.set_xticks([-208,-158,-120,-88,-44,0,40,80])
+# ax1.set_yticks([])
+ax1.legend(loc=2,fontsize='small')
 
 
 # fig2   = plt.figure()
 # ax2 = fig2.add_axes([0.10, 0.15, 0.80, 0.80])
 # plt2 = ep.enhancePlot()
-# ltu2 = plt2.ePlot(ax2, Z5, Y5)
+# l1 = plt2.ePlot(ax2, ZD, Y5)
 # plt2.eSetPlot(ax2)
 # ax2.ticklabel_format(style='plain',axis='y')
 # ax2.set_xlim([-12,15])
@@ -282,15 +251,14 @@ plt.legend(ltu1+ltu2+ltu3,[r'LTU1',r'LTU2',r'LTU3'],frameon=False,loc="upper lef
 
 
 plt.show()
-fig1.savefig('../fig/flr/floor3.eps')
-# fig2.savefig('../fig/flr/arc.eps')
+# fig1.savefig('../fig/flr/floor3.eps')
+# fig2.savefig('../fig/flr/dump.eps')
 # # fig2.savefig('../fig/eta.eps')
 # # fig3.savefig('../fig/etap.eps')
 # fig2.savefig('../fig/emitn.eps')
 # fig3.savefig('../fig/r56.eps')
 # # fig6.savefig('../fig/sigma.eps')
 # #
-file1.close()
 
 
 

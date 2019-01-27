@@ -4,117 +4,67 @@ import numpy as np
 import math
 import scipy.constants as spc
 import string
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-import enhancePlot as ep
+
 plt.style.use('messiah')
 
-s1,betax,betay,etax,etay,enx,eny,sigx,sigy,r56 = np.loadtxt('../../dat/ltu3/param.dat',usecols=(0,2,3,4,5,8,9,10,11,12),unpack=True,skiprows=2)
-s2,prof = np.loadtxt('../../dat/ltu3/prof.dat',unpack=True,skiprows=1)
+s1,betax1,yy1,cy1,cyy1,betay1,etax1,etay1,etaxp1,etayp1 = np.loadtxt('../../dat/kick/kick.dat',usecols=(0,2,3,4,5,6,7,8,9,10),unpack=True,skiprows=2)
+s3,prof3 = np.loadtxt('../../dat/kick/prof.dat',unpack=True)
+s2,betax2,yy2,cy2,cyy2,betay2,etax2,etay2,etaxp2,etayp2 = np.loadtxt('../../dat/ltu3/param.dat',usecols=(0,2,3,4,5,6,7,8,9,10),unpack=True,skiprows=2)
+s4,prof4 = np.loadtxt('../../dat/ltu3/prof.dat',unpack=True)
 
-s1 = [s-88 for s in s1]
-s2 = [s-88 for s in s2]
+s1max = s1[-1]
+dy0 = cyy1[-1]
+
+s2 = s2+s1max
+s4 = s4+s1max
+s5 = np.append(s1,s2)
+s6 = np.append(s3,s4)
+
+betax = np.append(betax1,betax2)
+betay = np.append(betay1,betay2)
+etax = np.append(etax1,etax2)
+etay = np.append(etay1,etay2)
+cyy = np.append(cyy1,cyy2+dy0)
+prof = np.append(prof3,prof4)
 
 fig1   = plt.figure()
-ax1 = fig1.add_axes([0.15, 0.20, 0.70, 0.60])
-plt1 = ep.enhancePlot(title=r'$\beta$-functions and $x$-dispersion of LTU-3')
-l1 = ax1.plot(s1,betax)
-l2 = ax1.plot(s1,betay)
-plt1.eSetPlot(ax1)
-ax1.set_xlim([min(s1)-5,max(s1)+5])
-ax1.set_ylim([min(min(betax),min(betay))/2,max(max(betax),max(betay))*1.05])
-ax1.set_xlabel(r'$s\ (m)$',fontsize='xx-large')
-ax1.set_ylabel(r'$\beta_{x,y}\ ({m})$',fontsize='xx-large')
-ax1.ticklabel_format(style='plain',axis='y')
-ax11 = fig1.add_axes([0.15, 0.875, 0.70, 0.05])
-ax11.plot(s2,prof,c='k',lw=0.4) 
-ax11.set_xlim([ax1.get_xlim()[0],ax1.get_xlim()[1]])
-ax11.set_xticks([])
-ax11.set_yticks([])
-ax11.spines['right'].set_color('none')
-ax11.spines['top'].set_color('none')
-ax11.spines['bottom'].set_color('none')
-ax11.spines['left'].set_color('none')
-ax12= ax1.twinx()
-l3 = plt1.ePlot(ax12,s1,etax,mt=['--'],cl=['y'])
-plt1.eSetPlot(ax12)
-ax12.set_xlim([ax11.get_xlim()[0],ax11.get_xlim()[1]])
-ax12.set_ylim([min(etax)*1.05,max(etax)*1.05])
-# ax12.set_ylim([-0.25,0.25])
-ax12.set_ylabel(r'$\eta_{x}\ (m)$',fontsize=22)
-plt.yticks(fontsize=14)
-plt.legend(l1+l2+l3,[r'$\beta_{x}$',r'$\beta_{y}$',r'$\eta_{x}$'],fontsize=14,bbox_to_anchor=(0.50,1.025),ncol=3)
-# ax1.set_xticks([-120, -80, -40, 0, 44, 88, 120])
-# ax1.set_xticklabels( ('-120', '-80', '-40', '0', '44', '88',  '120'))
-#
+ax1 = fig1.add_axes([0.110, 0.140, 0.690, 0.710])
+l1 = ax1.plot(s5,betax,label=r'$\beta_{x}$')
+l2 = ax1.plot(s5,betay,label=r'$\beta_{y}$')
+ax1.set_title(r'$\beta$-functions and dispersions of LTU-3',fontstyle='italic')
+ax1.set_xlim([s5[0]-5,s5[-1]+5])
+ax1.set_ylim([min(min(betax),min(betay))-2,max(max(betax),max(betay))+2])
+ax1.ticklabel_format(style='plain',axis='x')
+ax1.set_xlabel(r'$s\ (m)$')
+ax1.set_ylabel(r'$\beta_{x,y}\ ({m})$')
 
-fig4   = plt.figure()
-ax4 = fig4.add_axes([0.15, 0.20, 0.75, 0.60])
-plt4 = ep.enhancePlot(axis=[r'$s\ (m)$',r'$\varepsilon_{x,y}\ (\mu{m}{\cdot}rad)$'],title='Norm. Emittance of LTU-3')
-l1 = ax4.plot(s1,enx*spc.mega)
-l2 = ax4.plot(s1,eny*spc.mega)
-plt4.eSetPlot(ax4)
-ax4.set_xlim([ax1.get_xlim()[0],ax1.get_xlim()[1]])
-ax4.set_ylim([min(min(enx),min(eny))*spc.mega/1.2,max(max(enx),max(eny))*spc.mega*1.02])
-plt.legend(l1+l2,[r'$\varepsilon_{x}$',r'$\varepsilon_{y}$'],fontsize=14,bbox_to_anchor=(0.50,1.025),ncol=3)
-ax42= fig4.add_axes([0.15, 0.875, 0.75, 0.05])
-ax42.plot(s2,prof,c='k',lw=0.4)
-ax42.set_xlim([ax4.get_xlim()[0],ax4.get_xlim()[1]])
-ax42.set_xticks([])
-ax42.set_yticks([])
-ax42.spines['right'].set_color('none')
-ax42.spines['top'].set_color('none')
-ax42.spines['bottom'].set_color('none')
-ax42.spines['left'].set_color('none')
+ax11= ax1.twinx()
+l4 = ax11.plot(s5,etax,'r-.',ms=0.4,label=r'$\eta_{x}$')
+l5 = ax11.plot(s5,etay,'y-.',ms=0.4,label=r'$\eta_{y}$')
+ax11.set_ylim([min(min(etax),min(etay))*1.05,max(max(etax),max(etay))*1.05])
+ax11.set_ylabel(r'$\eta_{x,y}\ (m)$')
 
+ax12=ax1.twinx()
+ax12.yaxis.set_ticks_position('right')
+ax12.spines['right'].set_position(('data', ax1.get_xlim()[1]*1.14-ax1.get_xlim()[0]*0.14))
+l3 = ax12.plot(s5,cyy*spc.kilo,'k--',ms=0.5,label=r'$\Delta{y}$')
+ax12.set_ylim([min(cyy)*spc.kilo-5,max(cyy)*spc.kilo+15])
+ax12.set_ylabel(r'$\Delta{y}\ (mm)$')
+plt.legend(l1+l2+l3+l4+l5,[r'$\beta_{x}$',r'$\beta_{y}$',r'$\Delta{y}$',r'$\eta_{x}$',r'$\eta_{y}$'],loc='upper right',ncol=2)
 
-# # fig5   = plt.figure(figsize=(8,4), dpi=200, facecolor="white");
-# fig5   = plt.figure();
-# ax5 = fig5.add_axes([0.15, 0.20, 0.75, 0.60])
-# plt5 = ep.enhancePlot(axis=[r'$s\ (m)$',r'$R_{56}\ (mm)$'],title=r'$R_{56}$')
-# ax5.plot(s1,r56*spc.kilo)
-# plt5.eSetPlot(ax5,legendFS=14)
-# ax5.set_xlim([ax1.get_xlim()[0],ax1.get_xlim()[1]])
-# # ax5.set_ylim([-0.2,0.2])
-# ax52= fig5.add_axes([0.15, 0.875, 0.75, 0.05])
-# ax52.plot(s2,prof,c='k',lw=0.4)
-# ax52.set_xlim([ax5.get_xlim()[0],ax5.get_xlim()[1]])
-# ax52.set_xticks([])
-# ax52.set_yticks([])
-# ax52.spines['right'].set_color('none')
-# ax52.spines['top'].set_color('none')
-# ax52.spines['bottom'].set_color('none')
-# ax52.spines['left'].set_color('none')
-# ax5.ticklabel_format(style='plain',axis='x')
-
-# fig6   = plt.figure(figsize=(8,4), dpi=100, facecolor="white");
-# ax6 = fig6.add_axes([0.15, 0.20, 0.70, 0.60])
-# plt6 = ep.enhancePlot()
-# plt6.ePlot(ax6,s1,sigx,sigy,pltLabel=[r'$\sigma_x$',r'$\sigma_y$'],axis=[r'$s\ (m)$',r'$\sigma_{x,y}\ (m)$'],title='Beam Profile with Dispersion')
-# ax62= fig6.add_axes([0.15, 0.875, 0.70, 0.05])
-# ax62.plot(s2,prof,c='k',lw=0.1)
-# # ax62.set_ylim([-20,20])
-# ax62.set_xticks([])
-# ax62.set_yticks([])
-# ax62.spines['right'].set_color('none')
-# ax62.spines['top'].set_color('none')
-# ax62.spines['bottom'].set_color('none')
-# ax62.spines['left'].set_color('none')
-# plt6.eSetPlot(ax6,legendFS=14)
-# ax6.ticklabel_format(style='plain',axis='x')
-# ax6.set_xticks([-132.5, -88, 0, 50,  100,  150,  200, 250, 300, 350])
-# ax6.set_xticklabels( ('-132.5', '-88', '0', '50',  '100',  '150',  '200', '250', '300', '350'))
-
-print(enx[0]*spc.mega,enx[len(enx)-1]*spc.mega,(enx[len(enx)-1]-enx[0])/enx[0])
-print(eny[0]*spc.mega,eny[len(eny)-1]*spc.mega,(eny[len(eny)-1]-eny[0])/eny[0])
+ax10 = fig1.add_axes([0.110, 0.930, 0.690, 0.030])
+ax10.plot(s6,prof,c='k',lw=0.4)
+ax10.set_xlim(ax1.get_xlim())
+ax10.set_xticks([])
+ax10.set_yticks([])
+ax10.spines['right'].set_color('none')
+ax10.spines['top'].set_color('none')
+ax10.spines['bottom'].set_color('none')
+ax10.spines['left'].set_color('none')
 
 plt.show()
-fig1.savefig('../../fig/ltu3/beta.eps')
-# fig2.savefig('../../fig/ltu3/eta.eps')
-# fig3.savefig('../../fig/ltu3/etap.eps')
-# fig2.savefig('../../fig/ltu3/emitn.eps')
-# fig3.savefig('../../fig/ltu3/r56.eps')
-# fig6.savefig('../../fig/ltu3/sigma.eps')
-#
-
+# fig1.savefig('../../fig/ltu3/beta.eps')
 
 
