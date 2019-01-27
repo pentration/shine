@@ -1,31 +1,22 @@
 #!/usr/bin/env bash
 # cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1/run
 
-# mpirun -np 60 Pelegant ltu3.ele
-# elegant ltu3.ele
+# mpirun -np 4 Pelegant ltu3.ele
+elegant ltu3.ele
 
-sddsxref out/ltu0/ltu0track.twi out/ltu0/ltu0track.sig out/ltu0/ltu0track.chs -take=ecnx,ecny,enx,eny,St,Sdelta,betaxBeam,betayBeam
-sddsxref out/ltu0/ltu0track.chs out/ltu0/ltu0track.flr out/ltu0/ltu0track.chs -take=X,Y,Z,theta,psi,phi
-sddsxref out/ltu0/ltu0track.chs out/ltu0/ltu0track.cen out/ltu0/ltu0track.chs -take=Cx,Cy
-sddsxref out/ltu0/ltu0track.chs out/ltu0/ltu0track.mag out/ltu0/ltu0track.chs -take=Profile
-sddsxref out/ltu0/ltu0track.chs out/ltu0/ltu0track.mat out/ltu0/ltu0track.chs -take=R56
-sddsprocess out/ltu0/ltu0track.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
-sddsprocess out/ltu0/ltu0track.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
-sdds2plaindata out/ltu0/ltu0track.chs ../dat/kick/param.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betaxBeam -col=betayBeam -col=etax -col=etay -col=etaxp -col=etayp -col=enx -col=eny -col=sigx -col=sigy -col=R56
-# sdds2plaindata out/ltu0/ltu0track.chs ../dat/kick/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
-sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" out/ltu0/ltu0track.chs -width=1000 ../dat/kick/twiss.dat
-sdds2plaindata out/ltu0/ltu0track.mag ../dat/kick/prof.dat -noRowCount "-separator= " -col=s -col=Profile
+sddsxref out/ltu3/ltu3.twi out/ltu3/ltu3.sig out/ltu3/ltu3.chs -take=ecnx,ecny,enx,eny,St,Sdelta
+sddsxref out/ltu3/ltu3.chs out/ltu3/ltu3.flr out/ltu3/ltu3.chs -take=X,Y,Z,theta,psi,phi
+sddsxref out/ltu3/ltu3.chs out/ltu3/ltu3.cen out/ltu3/ltu3.chs -take=Cx,Cy
+sddsxref out/ltu3/ltu3.chs out/ltu3/ltu3.mag out/ltu3/ltu3.chs -take=Profile
+sddsxref out/ltu3/ltu3.chs out/ltu3/ltu3.mat out/ltu3/ltu3.chs -take=R56
+	
+sddsprocess out/ltu3/ltu3.chs -define=col,sigx,"enx pCentral0 / betax * Sdelta etax * sqr + sqrt 16 *",units=m -define=col,sigy,"eny pCentral0 / betay * Sdelta etay * sqr + sqrt 16 *",units=m
+sddsprocess out/ltu3/ltu3.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
 
-# elegant2genesis ltu3.w01 linac/linac.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
-# sdds2plaindata linac/linac.gen ../dat/kick/current0.dat -noRowCount -col=s "-separator= " -col=t -col=current
-elegant2genesis out/ltu0/ltu0track.out out/ltu0/ltu0track.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
-sdds2plaindata out/ltu0/ltu0track.gen ../dat/kick/current.dat -noRowCount -col=s "-separator= " -col=t -col=current
-# sdds2plaindata ltu3.w01 ../dat/kick/t-p0.bin -outputMode=binary -noRowCount "-separator= " -col=t -col=p
-sdds2plaindata out/ltu0/ltu0track.out ../dat/kick/t-p.bin -outputMode=binary -noRowCount "-separator= " -col=t -col=p
-sdds2plaindata out/ltu0/ltu0track.out ../dat/kick/nParticle.dat -noRowCount -par=Particles
-# ./dist.py
+sdds2plaindata out/ltu3/ltu3.chs ../dat/ltu3/param.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betax -col=Y -col=Cy -col=CYy -col=betay -col=etax -col=etay -col=etaxp -col=etayp
+sdds2plaindata out/ltu3/ltu3.chs ../dat/ltu3/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
 
-# cp current.dat lhon2-current.dat
-# cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1
-# sddsplot -col=s,sig? -topline='Beam Size' -graph=line,vary -legend ltu3.twi
-# sddsplot -col=s,current -topline='Current' -graph=line,vary -legend ltu3.gen
+sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" out/ltu3/ltu3.chs -width=1000 ../dat/ltu3/twiss.dat
+
+sdds2plaindata out/ltu3/ltu3.mag ../dat/ltu3/prof.dat -noRowCount "-separator= " -col=s -col=Profile
+sdds2plaindata out/ltu3/ltu3.flr ../dat/flr/ltu3-flr.dat -col=ElementName -noRowCount "-separator= " -col=s -col=X -col=Y -col=Z -col=theta -col=phi -col=psi

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# cd /Users/chensi/Simulations/data/elegant/hxfel/2.dba1/run
+
+# mpirun -np 60 Pelegant ltu3track.ele
+# elegant ltu3track.ele
+
+# sddsxref out/ltu3/ltu3track.twi out/ltu3/ltu3track.sig out/ltu3/ltu3track.chs -take=ecnx,ecny,enx,eny,St,Sdelta,betaxBeam,betayBeam
+# sddsxref out/ltu3/ltu3track.chs out/ltu3/ltu3track.flr out/ltu3/ltu3track.chs -take=X,Y,Z,theta,psi,phi
+# sddsxref out/ltu3/ltu3track.chs out/ltu3/ltu3track.cen out/ltu3/ltu3track.chs -take=Cx,Cy
+# sddsxref out/ltu3/ltu3track.chs out/ltu3/ltu3track.mag out/ltu3/ltu3track.chs -take=Profile
+# sddsxref out/ltu3/ltu3track.chs out/ltu3/ltu3track.mat out/ltu3/ltu3track.chs -take=R56
+# sddsprocess out/ltu3/ltu3track.chs -define=col,sigx,"ecnx pCentral0 / betax * Sdelta etax * sqr + sqrt",units=m -define=col,sigy,"ecny pCentral0 / betay * Sdelta etay * sqr + sqrt",units=m
+# sddsprocess out/ltu3/ltu3track.chs -define=col,CXx,"X Cx +",units=m -define=col,CYy,"Y Cy +",units=m
+# sdds2plaindata out/ltu3/ltu3track.chs ../dat/ltu3/param.dat -noRowCount -col=s "-separator= " -col=ElementName -col=betaxBeam -col=betayBeam -col=etax -col=etay -col=etaxp -col=etayp -col=enx -col=eny -col=sigx -col=sigy -col=R56
+# sdds2plaindata out/ltu3/ltu3track.chs ../dat/ltu3/floor.dat -noRowCount -col=s "-separator= " -col=X -col=Cx -col=CXx -col=Y -col=Cy -col=CYy -col=Z -col=theta -col=psi -col=phi
+# sddsprintout -col="(s,ElementName,ElementType,beta*,alpha*,eta*,psi*,en*,pCentral0)" out/ltu3/ltu3track.chs -width=1000 ../dat/ltu3/twiss.dat
+# sdds2plaindata out/ltu3/ltu3track.mag ../dat/ltu3/prof.dat -noRowCount "-separator= " -col=s -col=Profile
+
+elegant2genesis out/ltu3/ltu3track.out out/ltu3/ltu3track.gen -totalCharge=1e-10 -chargeParameter=Charge -slices=1000
+sdds2plaindata out/ltu3/ltu3track.gen ../dat/ltu3/current.dat -noRowCount -col=s "-separator= " -col=t -col=current
+sdds2plaindata out/ltu3/ltu3track.out ../dat/ltu3/t-p.bin -outputMode=binary -noRowCount "-separator= " -col=t -col=p
+sdds2plaindata out/ltu3/ltu3track.out ../dat/ltu3/nParticle.dat -noRowCount -par=Particles

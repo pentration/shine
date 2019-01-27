@@ -1,0 +1,77 @@
+&global_settings
+!	log_file 			= dclsDog.log,
+&end
+!&divide_elements
+!	name				= *,
+!	type				= *DRIFT,
+!	divisions 			= 5,
+!&end
+!&divide_elements
+!	name 				= *,
+!	type 				= QUAD,
+!	divisions 			= 10,
+!&end
+
+&run_setup
+	lattice				= "optim/ltu3.lte",
+	default_order		= 2,
+!	use_beamline		= LTU3,
+	expand_for 			= "linac/k2s.out",
+	sigma 				= "out/ltu3/%s.sig",
+	centroid 			= "out/ltu3/%s.cen",
+	output 				= "out/ltu3/%s.out",
+	final 				= "out/ltu3/%s.fin",
+	magnets 			= "out/ltu3/%s.mag",
+	print_statistics	= 1,
+	always_change_p0	= 1,
+&end
+
+&run_control 
+&end
+
+&sdds_beam
+	input				= "linac/k2s.out",
+	input_type 			= elegant,
+	sample_interval 	= 1,
+	p_lower 			= 0,
+	p_upper 			= 1e10,
+	reuse_bunch 		= 1
+&end
+
+&twiss_output
+	filename 			= "out/ltu3/%s.twi",
+!	beta_x 				= 3.108647e+01,
+!	beta_y 				= 1.405883e+01,
+!	alpha_x 			=-1.498796e+00,
+!	alpha_y 			= 6.842346e-01,
+	beta_x 				= 1.554870e+01,
+	beta_y 				= 2.813689e+01,
+	alpha_x 			=-7.888571e-01,
+	alpha_y 			= 1.390795e+00,
+	matched 			= 0,
+	concat_order 		= 1,
+&end
+
+&floor_coordinates
+	filename					= "out/ltu3/%s.flr",
+	X0							= 0.0;
+	Z0							= 0.0;
+	theta0						= 0.0;
+	include_vertices			= 0; 
+	long vertices_only			= 0; 
+	long magnet_centers			= 0;
+&end
+
+&matrix_output
+	printout 			= out/ltu3/%s.mpr,
+	SDDS_output			= out/ltu3/%s.mat
+	printout_order 		= 1,
+	full_matrix_only 	= 0,
+	SDDS_output_order 	= 1,
+	individual_matrices = 0,
+	output_at_each_step = 0,
+!	start_from_occurence= 0,
+&end
+
+&track 
+&end

@@ -1,59 +1,45 @@
-&global_settings
-!	log_file 			= dclsDog.log,
-&end
-!&divide_elements
-!	name				= *,
-!	type				= *DRIFT,
-!	divisions 			= 5,
+!&global_settings
+!	log_file					= dclsDog.log,
 !&end
 !&divide_elements
-!	name 				= *,
-!	type 				= QUAD,
-!	divisions 			= 10,
+!	name						= LM0,
+!	type						= *DRIFT,
+!	divisions					= 5,
+!&end
+!&divide_elements
+!	name						= *,
+!	type						= QUAD,
+!	divisions					= 10,
 !&end
 
 &run_setup
-	lattice				= "optim/ltu0.lte",
-	default_order		= 2,
-!	use_beamline		= ltu3,
-	expand_for 			= "linac/septum.out",
-	sigma 				= "out/ltu0/%s.sig",
-	centroid 			= "out/ltu0/%s.cen",
-	output 				= "out/ltu0/%s.out",
-	final 				= "out/ltu0/%s.fin",
-	magnets 			= "out/ltu0/%s.mag",
-	print_statistics	= 1,
-	always_change_p0	= 1,
+	lattice						= optim/ltu3.lte
+	default_order				= 2,
+	p_central					= 1.631685e+04,
+    sigma						= "out/ltu3/%s.sig",
+    centroid					= "out/ltu3/%s.cen",
+    output						= "out/ltu3/%s.out",
+    final						= "out/ltu3/%s.fin",
+    magnets						= "out/ltu3/%s.mag",
+    print_statistics			= 1,
+    always_change_p0			= 1,
 &end
 
-&run_control 
-&end
-
-&sdds_beam
-	input				= "linac/septum.out",
-	input_type 			= elegant,
-	sample_interval 	= 1,
-	p_lower 			= 0,
-	p_upper 			= 1e10,
-	reuse_bunch 		= 1
+&run_control
 &end
 
 &twiss_output
-	filename 			= "out/ltu0/%s.twi",
-	beta_x 				= 1.553173e+01,
-	beta_y 				= 2.819323e+01,
-	alpha_x 			=-7.886656e-01,
-	alpha_y 			= 1.394406e+00,
-!	beta_x 				= 3.108647e+01,
-!	beta_y 				= 1.405883e+01,
-!	alpha_x 			=-1.498796e+00,
-!	alpha_y 			= 6.842346e-01,
-	matched 			= 0,
-	concat_order 		= 1,
+	filename					= "out/ltu3/%s.twi",
+	matched						= 0,
+!	beta_x						= 2.535802e+01,
+!	beta_y						= 1.898043e+00,
+!	alpha_x						=-3.715753e+00,
+!	alpha_y						= 3.290709e-01,
+	concat_order				= 1,
 &end
 
 &floor_coordinates
-	filename					= "out/ltu0/%s.flr",
+	filename					= "out/ltu3/%s.flr",
 	X0							= 0.0;
 	Z0							= 0.0;
 	theta0						= 0.0;
@@ -63,15 +49,31 @@
 &end
 
 &matrix_output
-	printout 			= out/ltu0/%s.mpr,
-	SDDS_output			= out/ltu0/%s.mat
-	printout_order 		= 1,
-	full_matrix_only 	= 0,
-	SDDS_output_order 	= 1,
-	individual_matrices = 0,
-	output_at_each_step = 0,
-!	start_from_occurence= 0,
+    printout					= "out/ltu3/%s.mpr",
+	SDDS_output					= "out/ltu3/%s.mat"
+    printout_order				= 1,
+    full_matrix_only			= 0,
+    SDDS_output_order			= 1,
+    individual_matrices			= 0,
+    output_at_each_step			= 0,
+!	start_from_occurence		= 0,
+&end
+ 
+&bunched_beam
+	n_particles_per_bunch		= 200,
+	emit_nx						= 2.584300e-07,
+	emit_ny						= 2.565767e-07,
+	Po							= 1.631685e+04,
+	sigma_dp					= 1.0e-4,
+	sigma_s						= 2.0e-5,
+	distribution_type[0] 		= 3*"gaussian" !,"hard-edge"
+	distribution_cutoff[0]		= 5*5,
+	symmetrize 					= 1,
+	enforce_rms_values[0]		= 1,1,1,
+	!bunch						= out/ltu3/%s.bun
 &end
 
 &track 
+	center_on_orbit				= 0,
+	offset_by_orbit				= 1,
 &end

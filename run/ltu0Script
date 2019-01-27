@@ -3,39 +3,6 @@
 
 # mpirun -np 4 Pelegant ltu0.ele
 elegant ltu0.ele
-# sddsprocess ltu0.sig -retain=column,St,Sdelta,s,ElementName -noWarnings
-# sddsprocess ltu0.fin -retain=parameter,St,Sdelta -noWarnings
-# sddsprocess ltu0.twi  -retain=column,s,beta?,alpha?,eta?,eta?p -retain=parameter, -noWarnings
-# for i in {3,5}
-# do
-# sddsprocess ltu0.w0$i -process=dt,average,t -define=column,dp,"p pCentral - pCentral /" -redefine=column,dt,"dt t -" /
-# 	-retain=parameter,s,pCentral,PreviousElementName -retain=column,p,dt,x,y -noWarnings
-# sddshist ltu0.w0$i -pipe=output -dataColumn=dt -bins=500 -statistics | sddsprocess -pipe=input runParticleHist.w0$i -define=column,particleNum,"frequency"
-#
-# sddsplot ltu0.w0$i -column=dt,dp -topline='Longitudinal Phase Space_w0'$i  -graphic=dot
-# sddsplot runParticleHist.w0$i -column=dt,frequency -topline='Longitudinal Particle Distribition_w0'$i -graphic=line -yLabel='Num of Particle'
-# sddsplot ltu0.w0$i -column=x,y -topline='Transverse Phase Space_w0'$i  -graphic=dot
-#
-# sddsconvert ltu0.w0$i runW0$i.Asc -ascii
-# sddsconvert runParticleHist.w0$i runParticleHistW0$i.Asc -ascii
-# done
-
-
-# sddsplot ltu0.twi -column=s,beta? -topline='Beta' -graph=line,vary -legend
-# sddsplot ltu0.twi -column=s,alpha? -topline='Alpha' -graph=line,vary -legend
-# sddsplot ltu0.twi -column=s,eta? -topline='Dispersion' -graph=line,vary -legend
-# sddsplot ltu0.twi -column=s,eta?p -topline="Dispersion'" -graph=line,vary -legend
-
-# sddsplot ltu0.sig -column=s,St
-# sddsplot ltu0.sig -column=s,Sdelta
-
-# sddsconvert ltu0.fin runFin.Asc -ascii
-# sddsconvert ltu0.twi runTwi.Asc -ascii
-# sddsconvert ltu0.sig runSig.Asc -ascii
-# sddsconvert ltu0.out runOut.Asc -ascii
-# sddsconvert ltu0.cen runCen.Asc -ascii
-
-# mv ltu0.w0* out/ltu0/
 
 sddsxref out/ltu0/ltu0.twi out/ltu0/ltu0.sig out/ltu0/ltu0.chs -take=ecnx,ecny,enx,eny,St,Sdelta
 sddsxref out/ltu0/ltu0.chs out/ltu0/ltu0.flr out/ltu0/ltu0.chs -take=X,Y,Z,theta,psi,phi

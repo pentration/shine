@@ -1,63 +1,22 @@
 q		: charge, total=0.1e-9
 
-BK		: CSRCSBEN,															&
-    	     L = 4.000000e-01,												&
-			 ANGLE =  5.000000e-05,											&
-    	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
-    	     HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-			 TILT = " -90.0 180.0 / -1 acos * ",							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1
-    	
-B2S		: CSRCSBEN,                                                     	&
-    	     L = 2.500000e-01, 							  					&
-			 ANGLE = "-0.75 180.0 / -1 acos * ",                          	&
-    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-			 E2 = "-1.50 180.0 / -1 acos * ",								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1        								
-
-% 1.65472595 2 * 1e-3 * sto yangle
-
-BY1		: CSRCSBEN,                                                     	&
-    	     L = 1.000000e-01, 							  					&
-			 ANGLE = "yangle",        				                  	&
-    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 TILT = " 90.0 180.0 / -1 acos * "								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1        								
-
-BY2		: CSRCSBEN,                                                     	&
-    	     L = 1.000000e-01, 							  					&
-			 ANGLE = "yangle",        				                  	&
-    	     E1 = " 0.00 180.0 / -1 acos * ",								&
-			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 TILT = " -90.0 180.0 / -1 acos * "								&
-			 HGAP = 0.0135, NONLINEAR = 1,									&
-			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
-    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1        								
-
-w00		: watch, filename = "%s.w00", mode = coord
+!!!~~~ watch elements ~~~!!!
+w00		: watch, filename = "%s.w00", mode = centroid
 w01		: watch, filename = "%s.w01", mode = coord
 w02		: watch, filename = "%s.w02", mode = coord
 w03		: watch, filename = "%s.w03", mode = coord
 w04		: watch, filename = "%s.w04", mode = coord
 w05		: watch, filename = "%s.w05", mode = coord
 
-M00		: MARK, fitpoint = 1
+!!!~~~ markers ~~~!!!
 MB0		: MARK, fitpoint = 1
 MB1		: MARK, fitpoint = 1
 MB2		: MARK, fitpoint = 1
+
 MB3		: MARK, fitpoint = 1
 MB4		: MARK, fitpoint = 1
 MB5		: MARK, fitpoint = 1
+
 MM0		: MARK, fitpoint = 1
 MM1		: MARK, fitpoint = 1
 MM2		: MARK, fitpoint = 1
@@ -73,75 +32,80 @@ MU2		: MARK, fitpoint = 1
 MU3		: MARK, fitpoint = 1
 MU4		: MARK, fitpoint = 1
 
-TWISS0	: TWISS, 	BETAX = 3.108647e+01, ALPHAX =-1.498796e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
-				 	BETAY = 1.405883e+01, ALPHAY = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
-				 	BETAX0= 3.397702e+01, ALPHAX0=-3.719834e+00, ETAX0= 1.000000e-16, ETAXP0= 1.000000e-16,								&
-				 	BETAY0= 2.515365e+00, ALPHAY0= 3.137122e-01, ETAY0= 1.000000e-16, ETAYP0= 1.000000e-16
+M00		: MARK, fitpoint = 1
 
-!!!~~~ Drifts ~~~!!
-LB10	: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LL0		: CSRDRIFT, L = 2.500000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+!!!~~~ Drifts ~~~!!!
 LM0		: CSRDRIFT, L = 5.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 LM1		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LM2		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-LMQ		: CSRDRIFT, L = 1.000000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
 
-!!!~~~ KICK Quadrupoles ~~~!!
+L01		: LINE = (3*LM0, 3*LM1)			! 1.8M drift
+L02		: LINE = (5*LM0, 3*LM1)			! 2.8M drift
+L03		: LINE = (7*LM0, 3*LM1)			! 3.8M drift
+L04		: LINE = (9*LM0, 3*LM1)			! 4.8M drift
+L05		: LINE = (11*LM0, 3*LM1)		! 5.8M drift
+L06		: LINE = (13*LM0, 3*LM1)		! 6.8M drift
+L07		: LINE = (15*LM0, 3*LM1)		! 7.8M drift
+
+!!!~~~ FODO Quadrupoles ~~~!!!
 QLF		: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01
 QLD		: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01
-QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.970249628480021e-03
-QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-6.446088864302186e-03
-QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY =-1.683590848536911e-02
-!QLD1	: QUAD,		L = 1.000000e-01, K1 =-2.474250e-01, DY =-1.520624e-02
-!QLF1	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY =-8.121508e-03
 
-B0S		: CSRCSBEN,                                                     	&
+FODO0	: LINE = (2*QLF, L07, 2*QLD, L07)
+DOFO0	: LINE = (2*QLD, L07, 2*QLF, L07)
+
+LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+LL0		: CSRDRIFT, L = 2.500000e-01, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+
+
+!!!!!!~~~ kicker-septum section ~~~!!!!!!
+
+!!!~~~ input twiss parameters of the fodo cell ~~~!!!
+
+TWISS0	: TWISS, 	BETAX = 3.108647e+01, ALPHAX =-1.498796e+00, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								&
+				 	BETAY = 1.405883e+01, ALPHAY = 6.842346e-01, ETAX = 1.000000e-16, ETAXP = 1.000000e-16,								
+TWISS1	: TWISS, 	BETAX = 2.784180e+01, ALPHAX =-3.028083e+00, ETAX = 4.824084e-08, ETAXP = 1.085748e-08, 							&
+					BETAY = 7.794659e+01, ALPHAY = 5.688313e+00, ETAY =-2.638581e-11, ETAYP =-4.813529e-11,
+
+!!!~~~ kicker magnets ~~~!!!
+BK		: CSRCSBEN,															&
+    	     L = 4.000000e-01,												&
+			 ANGLE =  5.000000e-05,											&
+    	     EDGE1_EFFECTS = 0, EDGE2_EFFECTS = 0,							&
+    	     HGAP = 0.0135, NONLINEAR = 1,									&
+			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
+			 TILT = " 90.0 180.0 / -1 acos * ",								&
+    	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
+    	     OUTPUT_INTERVAL = 10, CSR = 1
+
+!!!~~~ DC septum for correcting the y-angle ~~~!!!
+BYS		: CSRCSBEN,                                                     	&
     	     L = 1.000000e-01, 							  					&
-			 ANGLE = 4.06912E-04,        				                  	&
+			 ANGLE = 3.932825e-04,        				                  	&
     	     E1 = " 0.00 180.0 / -1 acos * ",								&
 			 E2 = " 0.00 180.0 / -1 acos * ",								&
-			 TILT = " -90.0 180.0 / -1 acos * "								&
+			 TILT = " 90.0 180.0 / -1 acos * "								&
 			 HGAP = 0.0135, NONLINEAR = 1,									&
 			 N_KICKS = 10, INTEGRATION_ORDER = 4,							&
     	     BINS = 50, SG_HALFWIDTH = 2, ISR = 1, SYNCH_RAD = 1,			&
-    	     OUTPUT_INTERVAL = 10, CSR = 1        								
+    	     OUTPUT_INTERVAL = 10, CSR = 1
 
-LMM0	: CSRDRIFT, L = 6.555850e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
+!!!~~~ lattice of the kicker-septum section ~~~!!!
+
 KICKER	: LINE = (LL0, 2*BK, LL0)
 KICKER1	: LINE = (7*LM1, 5*KICKER, 6*LM1)
-L01		: LINE = (15*LM0, 3*LM1)
-L02		: LINE = (5*LM0, 3*LM1)
-L03		: LINE = (7*LM0, 3*LM1)
-FODO0	: LINE = (2*QLF, L01, 2*QLD, L01)
-DOFO0	: LINE = (2*QLD, L01, 2*QLF, L01)
+KICKER2	: LINE = (7*LM1, 5*KICKER, 6*LM1)
+
+C0		: CENTER,	X = 1, XP = 1, Y = 1, YP = 1
+F0		: FLOOR, X=0,Y=-1.651943126437229e-02,PHI=0
+
+!C1		: CENTER,	X = 1, XP = 1, Y = 1, YP = 1
+!F1		: FLOOR,	X =-1.017506e+00,Y = 0, THETA=-6.283185e-02, PHI=0, PSI=0
+
+!!!~~~ Kicker Quadrupoles ~~~!!
+QLD0	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.970249628480021e-03
+QLF0	: QUAD,		L = 1.000000e-01, K1 = 4.823921e-01, DY = 6.446088864302186e-03
+QLD1	: QUAD,		L = 1.000000e-01, K1 =-4.823921e-01, DY = 1.669381739946152e-02
 
 
-C0		: CENTER, X=1,XP=1,Y=1,YP=1
-F0		: FLOOR, X=0,Y=1.687816921859339e-02,PHI=0
+K2S		: LINE = (q,TWISS0,3*FODO0,2*QLF,KICKER1,2*QLD0,KICKER2,2*QLF0,L07,2*QLD1,4*LM1,BYS,C0,F0,LM0)
 
-
-!!!~~~ LTU2 ~~~!!
-LMM2	: CSRDRIFT, L = 7.155144e-02, DZ = 0.01, USE_STUPAKOV = 1, CSR = 1
-QB21	: QUAD, 	L = 1.000000e-01, K1 = 1.278109e-00
-QB22	: QUAD, 	L = 1.500000e-01, K1 =-9.564540e-01
-                                          
-QM21	: QUAD, 	L = 1.000000e-01, K1 = 4.385813e-01
-QM22	: QUAD, 	L = 1.000000e-01, K1 =-1.737350e-00
-QM23	: QUAD, 	L = 1.000000e-01, K1 = 7.473128e-01
-QM24	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
-QM25	: QUAD, 	L = 1.000000e-01, K1 = 1.158713e-00
-QM26	: QUAD, 	L = 1.000000e-01, K1 =-1.872738e-00
-
-QU21	: QUAD, 	L = 1.000000e-01, K1 =-1.789349e-01
-QU22	: QUAD, 	L = 1.000000e-01, K1 =-5.068833e-01
-QU23	: QUAD, 	L = 1.000000e-01, K1 = 9.125465e-01
-QU24	: QUAD, 	L = 1.000000e-01, K1 =-5.376278e-01
-QU25	: QUAD, 	L = 1.000000e-01, K1 =-1.007698e-00
-QU26	: QUAD, 	L = 1.000000e-01, K1 = 5.024344e-01
-
-!MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, L01, 2*QLD1, 2*LM1)
-MAT02	: LINE = (TWISS0, 2*QLF, KICKER1, 2*QLD0, KICKER1, 2*QLF0, 15*LM0, B0S, 2*LM1, 2*QLD1, C0, F0, 3*LM1, 10*LM1,&
-				2*LM0, MM0, BY1, 10*LM0, BY2, MM1, 20*LM0)
-
-USE, 	MAT02
-RETURN
